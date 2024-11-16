@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // src/app/components/ChatComponent.tsx
 import { useState } from 'react';
 import { LexiconSDK } from 'lexicon-sdk-mvp';
@@ -5,6 +6,14 @@ import { LexiconSDK } from 'lexicon-sdk-mvp';
 interface Message {
     role: string;
     content: string;
+}
+
+interface ChatResponse {
+    content: string | null;
+    functionCall: {
+        name: string;
+        arguments: any;
+    } | null;
 }
 
 const ChatComponent = () => {
@@ -19,14 +28,24 @@ const ChatComponent = () => {
         setUserInput("");
 
         try {
-            const response = await LexiconSDK.sendMessage(userInput);
+            const response: ChatResponse = await LexiconSDK.sendMessage(userInput);
             
-            if (response) {
-                const gptMessage = { role: "assistant", content: response };
-                setChatHistory([...chatHistory, newMessage, gptMessage]);
+            if (response.content) {
+                const gptMessage = { role: "assistant", content: response.content };
+                setChatHistory(prev => [...prev, gptMessage]);
+            }
+
+            if (response.functionCall) {
+                const functionMessage = {
+                    role: "assistant",
+                    content: `Function Called: ${response.functionCall.name}\nArguments: ${JSON.stringify(response.functionCall.arguments, null, 2)}`
+                };
+                setChatHistory(prev => [...prev, functionMessage]);
             }
         } catch (error) {
             console.error("Error starting chat:", error);
+            const errorMessage = { role: "assistant", content: "Sorry, there was an error processing your request." };
+            setChatHistory(prev => [...prev, errorMessage]);
         }
     };
 

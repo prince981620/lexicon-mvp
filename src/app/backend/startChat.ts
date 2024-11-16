@@ -11,7 +11,7 @@ export const startChat = async (messages: string[]) => {
 
   try {
     const response = await openai.chat.completions.create({
-      model: "gpt-4o-mini", // or gpt-3.5-turbo, depending on your usage
+      model: "gpt-4o-mini",
       messages: messages.map((msg) => ({ role: "user", content: msg })),
       tools: tools.map(tool => ({
         type: "function",
@@ -21,9 +21,25 @@ export const startChat = async (messages: string[]) => {
           parameters: tool.parameters
         }
       })),
+      tool_choice: "auto",
     });
-    console.log(response);
-    return response.choices[0].message.content;
+
+    const message = response.choices[0].message;
+
+    if (message.tool_calls) {
+      return {
+        functionCall: {
+          name: message.tool_calls[0].function.name,
+          arguments: JSON.parse(message.tool_calls[0].function.arguments)
+        },
+        content: message.content
+      };
+    }
+
+    return {
+      content: message.content,
+      functionCall: null
+    };
   } catch (error) {
     console.error("Error while chatting with GPT:", error);
     throw new Error("Unable to fetch chat response.");
