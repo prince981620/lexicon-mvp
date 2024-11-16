@@ -1,23 +1,35 @@
 // src/chat.ts
 import { OpenAI } from "openai";
 import { tools } from "@/app/types/functionDefs";
+import { ChatCompletionMessageParam } from "openai/resources/chat/completions";
 
 const apiKey = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
+const model = process.env.NEXT_PUBLIC_AI_MODEL as string;
 
-export const startChat = async (messages: string[]) => {
+interface Message {
+  role: "system" | "user" | "assistant" | "function";
+  content: string;
+  name?: string;
+  function_call?: {
+    name: string;
+    arguments: string;
+  };
+}
+
+export const startChat = async (messages: Message[]) => {
   const openai = new OpenAI({
     apiKey,
   });
 
   try {
     const response = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
+      model: model,
       messages: [
         {
           role: "system",
           content: "You are Lexicon AI, a helpful assistant specializing in Solana blockchain interactions. You communicate in a friendly, professional manner while maintaining technical accuracy."
         },
-        ...messages.map((msg) => ({ role: "user", content: msg }) as const)
+        ...(messages as ChatCompletionMessageParam[])
       ],
       tools: tools.map((tool) => ({
         type: "function" as const,

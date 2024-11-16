@@ -3,7 +3,7 @@ import type { NextRequest } from "next/server";
 import { startChat } from "@/app/backend/startChat";
 
 export async function POST(req: NextRequest) {
-  const { userInput } = await req.json();
+  const { userInput, messageHistory } = await req.json();
 
   if (!userInput) {
     return new Response(JSON.stringify({ message: "Invalid input" }), {
@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const response = await startChat([userInput]);
+    const response = await startChat(messageHistory || [{ role: 'user', content: userInput }]);
     return new Response(JSON.stringify({ response }), { status: 200 });
   } catch (error) {
     console.error("Error starting chat:", error);
