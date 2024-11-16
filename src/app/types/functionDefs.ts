@@ -6,7 +6,7 @@ export const tools = [
     strict: true,
     parameters: {
       type: "object",
-      required: ["sender_public_key", "recipient_wallet", "amount_sol"],
+      required: ["recipient_wallet", "amount_sol"],
       properties: {
         amount_sol: {
           type: "number",
@@ -15,10 +15,6 @@ export const tools = [
         recipient_wallet: {
           type: "string",
           description: "The recipient's wallet address in base58 format.",
-        },
-        sender_public_key: {
-          type: "string",
-          description: "The sender's Solana public key in base58 format.",
         },
       },
       additionalProperties: false,

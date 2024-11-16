@@ -8,15 +8,12 @@ import {
 } from "@solana/web3.js";
 
 export const create_solana_transaction = async (
-  sender_public_key: string,
   recipient_wallet: string,
-  amount_sol: number
+  amount_sol: number,
+  fromPubkey: PublicKey
 ) => {
   try {
     const connection = new Connection(clusterApiUrl("devnet"), "confirmed");
-
-    // Convert addresses to PublicKey objects
-    const fromPubkey = new PublicKey(sender_public_key);
     const toPubkey = new PublicKey(recipient_wallet);
 
     // Create transaction instruction

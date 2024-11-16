@@ -25,15 +25,15 @@ const ChatComponent = () => {
 
   const handleFunctionCall = async (functionCall: any) => {
     if (functionCall.name === "create_solana_transaction") {
-      if (!wallet.connected || !wallet.signTransaction) {
+      if (!wallet.connected || !wallet.signTransaction || !wallet.publicKey) {
         return "Please connect your wallet first";
       }
 
       try {
         const { transaction, connection } = await create_solana_transaction(
-          functionCall.arguments.sender_public_key,
           functionCall.arguments.recipient_wallet,
-          functionCall.arguments.amount_sol
+          functionCall.arguments.amount_sol,
+          wallet.publicKey
         );
 
         // Sign the transaction
