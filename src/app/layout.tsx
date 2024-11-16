@@ -3,8 +3,8 @@ import "./globals.css";
 import { WalletContextProvider } from "../app/components/WalletContextProvider";
 
 export const metadata = {
-  title: "Lexicon - AI Powered Solana dApp",
-  description: "An intelligent dApp with Solana Wallet Adapter in Next.js",
+  title: "Lexicon - AI assistant for Solana",
+  description: "An intelligent AI assistant for the Solana blockchain",
 };
 
 export default function RootLayout({
