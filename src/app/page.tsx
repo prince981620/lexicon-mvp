@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 // src/app/page.tsx
 "use client";
 

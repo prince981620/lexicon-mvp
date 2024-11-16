@@ -5,6 +5,7 @@ import { useState } from "react";
 import { LexiconSDK } from "lexicon-sdk-mvp";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { create_solana_transaction } from "../utils/solanaTransactions";
+import LoadingSpinner from "./LoadingSpinner";
 
 interface Message {
   role: string;
@@ -23,6 +24,7 @@ const ChatComponent = () => {
   const wallet = useWallet();
   const [chatHistory, setChatHistory] = useState<Message[]>([]);
   const [userInput, setUserInput] = useState<string>("");
+  const [isGenerating, setIsGenerating] = useState(false);
 
   const handleFunctionCall = async (functionCall: any) => {
     if (functionCall.name === "create_solana_transaction") {
@@ -71,6 +73,7 @@ const ChatComponent = () => {
     const newMessage = { role: "user", content: userInput };
     setChatHistory([...chatHistory, newMessage]);
     setUserInput("");
+    setIsGenerating(true);
 
     try {
       const response: ChatResponse = await LexiconSDK.sendMessage(userInput);
@@ -103,6 +106,8 @@ const ChatComponent = () => {
         content: "Sorry, there was an error processing your request.",
       };
       setChatHistory((prev) => [...prev, errorMessage]);
+    } finally {
+      setIsGenerating(false);
     }
   };
 
@@ -139,6 +144,14 @@ const ChatComponent = () => {
             </div>
           </div>
         ))}
+        {isGenerating && (
+          <div className="flex items-start">
+            <img src="/lexicon/lexicon-logo.png" alt="Lexicon AI" className="h-6 w-6 mr-2 self-end" />
+            <div className="max-w-[80%] px-4 py-2 rounded-2xl bg-gray-50 border border-gray-100">
+              <LoadingSpinner />
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Input Area */}
@@ -148,13 +161,15 @@ const ChatComponent = () => {
             type="text"
             value={userInput}
             onChange={(e) => setUserInput(e.target.value)}
-            onKeyPress={(e) => e.key === "Enter" && startChat()}
-            className="flex-1 px-4 py-2 bg-gray-50 text-black rounded-full border border-gray-200 focus:outline-none focus:border-gray-300 transition-colors"
-            placeholder="Ask Lexicon AI anything..."
+            onKeyPress={(e) => e.key === "Enter" && !isGenerating && startChat()}
+            disabled={isGenerating}
+            className="flex-1 px-4 py-2 bg-gray-50 text-black rounded-full border border-gray-200 focus:outline-none focus:border-gray-300 transition-colors disabled:opacity-50"
+            placeholder={isGenerating ? "Waiting for response..." : "Ask Lexicon AI anything..."}
           />
           <button
             onClick={startChat}
-            className="px-6 py-2 bg-black text-white rounded-full hover:bg-gray-900 transition-opacity"
+            disabled={isGenerating}
+            className="px-6 py-2 bg-black text-white rounded-full hover:bg-gray-900 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Send
           </button>
