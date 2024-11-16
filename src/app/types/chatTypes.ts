@@ -7,4 +7,4 @@ export interface FunctionCall {
 export interface ChatResponse {
   content: string | null;
   functionCall: FunctionCall | null;
-} 
+}
