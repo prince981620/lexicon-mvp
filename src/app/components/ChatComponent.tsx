@@ -45,7 +45,12 @@ const ChatComponent = () => {
         );
 
         // Wait for confirmation
-        await connection.confirmTransaction(signature, "confirmed");
+        const latestBlockhash = await connection.getLatestBlockhash();
+        await connection.confirmTransaction({
+          signature,
+          blockhash: latestBlockhash.blockhash,
+          lastValidBlockHeight: latestBlockhash.lastValidBlockHeight,
+        });
 
         return `Transaction successful! Signature: ${signature}`;
       } catch (error: unknown) {
