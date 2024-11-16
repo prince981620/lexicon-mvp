@@ -101,41 +101,47 @@ const ChatComponent = () => {
   };
 
   return (
-    <div className="mt-4 w-full max-w-md">
-      <div className="border p-4 rounded bg-white shadow-md">
+    <div className="w-full h-[600px] flex flex-col rounded-2xl bg-gray-900/50 backdrop-blur-lg border border-gray-700">
+      {/* Chat History */}
+      <div className="flex-1 p-6 overflow-y-auto space-y-4">
         {chatHistory.map((message, index) => (
           <div
             key={index}
-            className={`mb-2 ${
-              message.role === "user" ? "text-right" : "text-left"
+            className={`flex ${
+              message.role === "user" ? "justify-end" : "justify-start"
             }`}
           >
-            <p
-              className={`p-2 rounded ${
+            <div
+              className={`max-w-[80%] px-4 py-2 rounded-2xl ${
                 message.role === "user"
-                  ? "bg-blue-500 text-white"
-                  : "bg-gray-300 text-black"
+                  ? "bg-blue-500 text-white rounded-br-none"
+                  : "bg-gray-800 text-gray-100 rounded-bl-none"
               }`}
             >
-              {message.content}
-            </p>
+              <p className="text-sm">{message.content}</p>
+            </div>
           </div>
         ))}
       </div>
-      <div className="mt-4 flex">
-        <input
-          type="text"
-          value={userInput}
-          onChange={(e) => setUserInput(e.target.value)}
-          className="flex-grow p-2 border rounded"
-          placeholder="Type your message..."
-        />
-        <button
-          onClick={startChat}
-          className="ml-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
-        >
-          Send
-        </button>
+
+      {/* Input Area */}
+      <div className="p-4 border-t border-gray-700">
+        <div className="flex gap-2">
+          <input
+            type="text"
+            value={userInput}
+            onChange={(e) => setUserInput(e.target.value)}
+            onKeyPress={(e) => e.key === "Enter" && startChat()}
+            className="flex-1 px-4 py-2 bg-gray-800 text-gray-100 rounded-full border border-gray-700 focus:outline-none focus:border-blue-500 transition-colors"
+            placeholder="Type your message..."
+          />
+          <button
+            onClick={startChat}
+            className="px-6 py-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full hover:opacity-90 transition-opacity"
+          >
+            Send
+          </button>
+        </div>
       </div>
     </div>
   );
