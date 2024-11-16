@@ -11,10 +11,16 @@ export const startChat = async (messages: string[]) => {
 
   try {
     const response = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
-      messages: messages.map((msg) => ({ role: "user", content: msg })),
+      model: "gpt-4-turbo-preview",
+      messages: [
+        {
+          role: "system",
+          content: "You are Lexicon AI, a helpful assistant specializing in Solana blockchain interactions. You communicate in a friendly, professional manner while maintaining technical accuracy."
+        },
+        ...messages.map((msg) => ({ role: "user", content: msg }) as const)
+      ],
       tools: tools.map((tool) => ({
-        type: "function",
+        type: "function" as const,
         function: {
           name: tool.name,
           description: tool.description,

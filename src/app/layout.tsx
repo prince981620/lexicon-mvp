@@ -14,8 +14,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900">
-        <div className="fixed inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]" />
+      <body className="min-h-screen bg-white">
+        {/* Background pattern */}
+        <div className="fixed inset-0">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-gray-100 via-transparent to-transparent opacity-50" />
+          <div className="absolute inset-0 bg-[url('/lexicon/wave-pattern.svg')] bg-repeat opacity-[0.03]" />
+        </div>
         <WalletContextProvider>
           <div className="relative">{children}</div>
         </WalletContextProvider>
