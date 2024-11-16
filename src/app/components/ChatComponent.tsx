@@ -1,5 +1,6 @@
 // src/app/components/ChatComponent.tsx
 import { useState } from 'react';
+import { LexiconSDK } from 'lexicon-sdk-mvp';
 
 interface Message {
     role: string;
@@ -18,20 +19,10 @@ const ChatComponent = () => {
         setUserInput("");
 
         try {
-            const response = await fetch('/api/startChat', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ userInput }),
-            });
-
-            const responseText = await response.text();
-            console.log("Response Text:", responseText);
-
-            const data = JSON.parse(responseText);
-            if (data.response) {
-                const gptMessage = { role: "assistant", content: data.response };
+            const response = await LexiconSDK.sendMessage(userInput);
+            
+            if (response) {
+                const gptMessage = { role: "assistant", content: response };
                 setChatHistory([...chatHistory, newMessage, gptMessage]);
             }
         } catch (error) {
