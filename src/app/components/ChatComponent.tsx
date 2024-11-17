@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { sendMessageLexicon } from "../backend/sendMessage";
 import { useWallet } from "@solana/wallet-adapter-react";
 import LoadingSpinner from "./LoadingSpinner";
@@ -13,6 +13,13 @@ const ChatComponent = () => {
   const [chatHistory, setChatHistory] = useState<FrontendMessage[]>([]);
   const [userInput, setUserInput] = useState<string>("");
   const [isGenerating, setIsGenerating] = useState(false);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+  }, [chatHistory, isGenerating]);
 
   const startChat = async () => {
     if (userInput.trim() === "") return;
@@ -142,7 +149,10 @@ const ChatComponent = () => {
           </div>
 
           {/* Chat Area */}
-          <div className="flex-1 overflow-y-auto bg-[#0a0a0a] space-y-6 p-6 chat-scrollbar">
+          <div 
+            ref={chatContainerRef}
+            className="flex-1 overflow-y-auto bg-[#0a0a0a] space-y-6 p-6 chat-scrollbar"
+          >
             {/* Welcome Message - Now always visible */}
             <div className="flex items-start gap-3 animate-fade-in">
               <img
