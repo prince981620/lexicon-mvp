@@ -67,9 +67,14 @@ const ChatComponent = () => {
         <div className="flex justify-center">
           <button
             onClick={() => setIsChatOpen(true)}
-            className="group relative inline-flex items-center justify-center px-8 py-3 text-lg font-medium text-white bg-black rounded-full overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-lg"
+            className="group relative flex items-center gap-3 px-6 py-3 bg-black hover:bg-black/90 text-white rounded-full overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-lg"
           >
-            <span className="relative">Start AI Chat</span>
+            <img
+              src="/lexicon/lexicon-logo.png"
+              alt="Lexicon AI"
+              className="h-5 w-5 rounded-full"
+            />
+            <span className="text-base font-medium">Chat with Lexicon</span>
             <div className="absolute inset-0 bg-white/10 group-hover:animate-shimmer" />
           </button>
         </div>
