@@ -3,7 +3,7 @@ import { FunctionHandler } from "../../types/types";
 
 // Map of function names to their handlers
 export const functionHandlers: Record<string, FunctionHandler> = {
-  create_solana_transaction: async (args, wallet) => {
+  send_solana_transaction: async (args, wallet) => {
     if (!wallet.connected || !wallet.signTransaction || !wallet.publicKey) {
       return "Please connect your wallet first";
     }
