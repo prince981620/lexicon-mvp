@@ -1,4 +1,3 @@
-// src/app/api/startChat/route.ts
 import type { NextRequest } from "next/server";
 import { startChat } from "@/app/backend/startChat";
 

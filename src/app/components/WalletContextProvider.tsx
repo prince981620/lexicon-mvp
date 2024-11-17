@@ -1,5 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-// src/components/WalletContextProvider.tsx
 "use client";
 
 import { ReactNode, useMemo } from "react";

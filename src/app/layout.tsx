@@ -1,4 +1,3 @@
-// src/app/layout.tsx
 import "./globals.css";
 import { WalletContextProvider } from "../app/components/WalletContextProvider";
 

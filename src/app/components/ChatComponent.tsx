@@ -1,6 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-// src/app/components/ChatComponent.tsx
 import { useState } from "react";
 import { sendMessageLexicon } from "../backend/sendMessage";
 import { useWallet } from "@solana/wallet-adapter-react";

@@ -1,5 +1,3 @@
-// src/send.ts
-
 import { ChatResponse, Message } from "../types/types";
 
 let messageHistory: Message[] = [];

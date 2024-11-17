@@ -1,4 +1,3 @@
-// src/chat.ts
 import { OpenAI } from "openai";
 import { tools } from "./data/functionDefs";
 import { ChatCompletionMessageParam } from "openai/resources/chat/completions";
