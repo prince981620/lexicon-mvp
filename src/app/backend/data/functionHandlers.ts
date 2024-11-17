@@ -1,14 +1,8 @@
-import { WalletContextState } from "@solana/wallet-adapter-react";
-import { create_solana_transaction } from "./solanaTransactions";
-import { FunctionCall } from "../types/types";
-
-type FunctionHandler = (
-  args: Record<string, any>,
-  wallet: WalletContextState
-) => Promise<string | null>;
+import { create_solana_transaction } from "../../utils/solanaTransactions";
+import { FunctionHandler } from "../../types/types";
 
 // Map of function names to their handlers
-const functionHandlers: Record<string, FunctionHandler> = {
+export const functionHandlers: Record<string, FunctionHandler> = {
   create_solana_transaction: async (args, wallet) => {
     if (!wallet.connected || !wallet.signTransaction || !wallet.publicKey) {
       return "Please connect your wallet first";
@@ -44,23 +38,4 @@ const functionHandlers: Record<string, FunctionHandler> = {
   },
   // Add more function handlers here as needed
   // example_function: async (args, wallet) => { ... }
-};
-
-export const executeFunctionCall = async (
-  functionCall: FunctionCall,
-  wallet: WalletContextState
-): Promise<string | null> => {
-  const handler = functionHandlers[functionCall.name];
-  
-  if (!handler) {
-    console.error(`No handler found for function: ${functionCall.name}`);
-    return `Function '${functionCall.name}' is not implemented`;
-  }
-
-  try {
-    return await handler(functionCall.arguments, wallet);
-  } catch (error) {
-    console.error(`Error executing function ${functionCall.name}:`, error);
-    return `Error executing function ${functionCall.name}`;
-  }
 };

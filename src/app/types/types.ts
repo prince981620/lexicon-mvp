@@ -1,3 +1,5 @@
+import { WalletContextState } from "@solana/wallet-adapter-react";
+
 export interface FunctionCall {
   name: string;
   arguments: Record<string, any>;
@@ -22,3 +24,8 @@ export interface FrontendMessage {
   role: string;
   content: string;
 }
+
+export type FunctionHandler = (
+  args: Record<string, any>,
+  wallet: WalletContextState
+) => Promise<string | null>;

@@ -4,7 +4,7 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import LoadingSpinner from "./LoadingSpinner";
 import { ChatResponse, FrontendMessage } from "../types/types";
 import ReactMarkdown from "react-markdown";
-import { executeFunctionCall } from "../utils/functionHandlers";
+import { executeFunctionCall } from "../utils/executeFunctionCall";
 
 const ChatComponent = () => {
   const wallet = useWallet();
