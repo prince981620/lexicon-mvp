@@ -60,145 +60,146 @@ const ChatComponent = () => {
   };
 
   return (
-    <div className="w-full h-[700px] flex flex-col rounded-3xl bg-white/95 backdrop-blur-sm border border-gray-100 shadow-2xl">
-      {/* Enhanced Lexicon Header */}
-      <div className="flex items-center gap-4 p-6 border-b border-gray-100/50">
-        <div className="flex items-center gap-3 flex-1">
+    <div className="w-full h-[700px] flex flex-col bg-gradient-to-b from-black to-[#0a0a0a] rounded-3xl overflow-hidden border border-gray-800/50 shadow-2xl">
+      {/* Header */}
+      <div className="flex items-center justify-between px-6 py-4 bg-black/90 border-b border-gray-800/50">
+        <div className="flex items-center gap-3">
           <div className="relative">
             <img
               src="/lexicon/lexicon-logo.png"
               alt="Lexicon AI"
-              className="h-10 w-10 rounded-xl shadow-lg"
+              className="h-8 w-8 rounded-full ring-2 ring-white/20"
             />
-            <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-white" />
+            <div className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-green-500 rounded-full ring-2 ring-black"></div>
           </div>
           <div>
-            <h2 className="text-xl font-bold text-black">Lexicon AI</h2>
-            <p className="text-xs text-gray-500">Powered by Lexicon Labs</p>
+            <h2 className="text-white font-semibold tracking-wide">Lexicon AI</h2>
+            <p className="text-[10px] text-gray-400">Online • Ready to assist</p>
           </div>
+        </div>
+        <div className="flex gap-4">
+          <button className="text-gray-400 hover:text-white transition-colors">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 12H4" />
+            </svg>
+          </button>
+          <button className="text-gray-400 hover:text-white transition-colors">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
         </div>
       </div>
 
-      {/* Enhanced Chat History */}
-      <div className="flex-1 p-6 overflow-y-auto space-y-6 chat-scrollbar">
+      {/* Chat Area */}
+      <div className="flex-1 overflow-y-auto bg-[#0a0a0a] space-y-6 p-6 chat-scrollbar">
+        {/* Welcome Message */}
+        {chatHistory.length === 0 && (
+          <div className="flex items-start gap-3 animate-fade-in">
+            <img
+              src="/lexicon/lexicon-logo.png"
+              alt="Lexicon AI"
+              className="h-8 w-8 rounded-full ring-2 ring-white/20"
+            />
+            <div className="bg-gradient-to-br from-[#1e1e1e] to-[#1a1a1a] text-white/90 rounded-2xl rounded-tl-none px-5 py-4 max-w-[85%] shadow-xl">
+              <p className="text-white font-medium">👋 Welcome to Lexicon AI</p>
+              <p className="mt-2 text-white/70 text-sm leading-relaxed">
+                I'm your specialized assistant for the Solana blockchain. Ask me anything about development, transactions, or exploring the ecosystem!
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* Chat Messages */}
         {chatHistory.map((message, index) => (
           <div
             key={index}
-            className={`flex ${
-              message.role === "user" ? "justify-end" : "justify-start"
-            } items-end gap-3`}
+            className={`flex items-start gap-3 ${
+              message.role === "user" ? "justify-end" : ""
+            } animate-fade-in-up`}
           >
             {message.role === "assistant" && (
-              <div className="flex-shrink-0">
-                <img
-                  src="/lexicon/lexicon-logo.png"
-                  alt="Lexicon AI"
-                  className="h-8 w-8 rounded-xl shadow-md"
-                />
-              </div>
-            )}
-            <div
-              className={`relative group transition-all duration-200 ${
-                message.role === "user" ? "ml-12" : "mr-12"
-              }`}
-            >
-              <div
-                className={`px-5 py-3 rounded-2xl ${
-                  message.role === "user"
-                    ? "bg-gradient-to-br from-black to-gray-800 text-white rounded-br-none shadow-lg"
-                    : "bg-gray-50 text-black rounded-bl-none border border-gray-100 shadow-sm"
-                }`}
-              >
-                <div className="prose prose-sm max-w-none dark:prose-invert">
-                  <ReactMarkdown>{message.content}</ReactMarkdown>
-                </div>
-              </div>
-              <span className="absolute bottom-0 text-xs text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity">
-                {new Date().toLocaleTimeString()}
-              </span>
-            </div>
-          </div>
-        ))}
-        {isGenerating && (
-          <div className="flex items-start gap-3">
-            <div className="flex-shrink-0">
               <img
                 src="/lexicon/lexicon-logo.png"
                 alt="Lexicon AI"
-                className="h-8 w-8 rounded-xl shadow-md"
+                className="h-8 w-8 rounded-full ring-2 ring-white/20"
               />
+            )}
+            <div
+              className={`relative max-w-[85%] shadow-lg ${
+                message.role === "user" 
+                  ? "bg-gradient-to-r from-white/90 to-white/80 text-black rounded-2xl rounded-br-none" 
+                  : "bg-gradient-to-br from-[#1e1e1e] to-[#1a1a1a] text-white/90 rounded-2xl rounded-tl-none"
+              } px-5 py-4 hover:shadow-xl transition-shadow duration-200`}
+            >
+              <ReactMarkdown className={`prose prose-sm max-w-none ${
+                message.role === "user" ? "prose-black" : "prose-invert"
+              }`}>
+                {message.content}
+              </ReactMarkdown>
             </div>
-            <div className="px-5 py-3 rounded-2xl bg-gray-50 border border-gray-100 shadow-sm">
+          </div>
+        ))}
+
+        {/* Loading State */}
+        {isGenerating && (
+          <div className="flex items-start gap-3">
+            <img
+              src="/lexicon/lexicon-logo.png"
+              alt="Lexicon AI"
+              className="h-8 w-8 rounded-full ring-2 ring-white/20"
+            />
+            <div className="bg-gradient-to-br from-[#1e1e1e] to-[#1a1a1a] rounded-2xl rounded-tl-none px-5 py-4 shadow-xl">
               <LoadingSpinner />
             </div>
           </div>
         )}
       </div>
 
-      {/* Enhanced Input Area */}
-      <div className="p-6 border-t border-gray-100/50 bg-gray-50/50">
-        <div className="flex gap-3">
-          <div className="relative flex-1">
+      {/* Input Area */}
+      <div className="p-4 bg-black/90 border-t border-gray-800/50">
+        <div className="flex gap-3 items-center">
+          <div className="relative flex-1 group">
             <input
               type="text"
               value={userInput}
               onChange={(e) => setUserInput(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && !isGenerating && startChat()}
               disabled={isGenerating}
-              className="w-full px-6 py-4 bg-white text-black rounded-2xl border border-gray-200 shadow-sm focus:outline-none focus:border-gray-300 focus:ring-2 focus:ring-gray-100 transition-all disabled:opacity-50 pr-12"
-              placeholder={
-                isGenerating
-                  ? "Lexicon AI is thinking..."
-                  : "Message Lexicon AI..."
-              }
+              className="w-full px-5 py-3.5 bg-[#1a1a1a] text-white rounded-2xl border border-gray-800 focus:outline-none focus:border-white/50 focus:ring-2 focus:ring-white/10 placeholder-gray-500 transition-all duration-200"
+              placeholder={isGenerating ? "Lexicon is thinking..." : "Ask anything about Solana..."}
             />
-            {userInput && (
-              <button
-                onClick={() => setUserInput("")}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
-              >
-                <svg
-                  className="w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              </button>
-            )}
+            <div className="absolute inset-x-0 -bottom-px h-px bg-gradient-to-r from-transparent via-white/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           </div>
           <button
             onClick={startChat}
-            disabled={isGenerating}
-            className="px-8 py-4 bg-black text-white rounded-2xl hover:bg-gray-900 active:bg-gray-800 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl flex items-center gap-2"
+            disabled={isGenerating || !userInput.trim()}
+            className="p-3.5 bg-white hover:bg-gray-100 text-black rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 shadow-lg hover:shadow-white/20 disabled:hover:shadow-none"
           >
-            {isGenerating ? (
-              "Processing..."
-            ) : (
-              <>
-                Send
-                <svg
-                  className="w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M14 5l7 7m0 0l-7 7m7-7H3"
-                  />
-                </svg>
-              </>
-            )}
+            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h14m-7-7l7 7-7 7" />
+            </svg>
           </button>
+        </div>
+        <div className="mt-3 flex items-center justify-center">
+          <a 
+            href="https://lexicon.chat" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#1a1a1a] hover:bg-[#1a1a1a] border border-gray-800/50 transition-colors"
+          >
+            <span className="text-xs text-gray-500">AI Agent powered by</span>
+            <div className="flex items-center gap-1.5">
+              <img
+                src="/lexicon/lexicon-logo-dark.png"
+                alt="Lexicon"
+                className="w-4 h-4 rounded-full"
+              />
+              <span className="text-xs font-medium text-white/90 hover:text-white transition-colors">
+                Lexicon Labs
+              </span>
+            </div>
+          </a>
         </div>
       </div>
     </div>
