@@ -73,19 +73,43 @@ const ChatComponent = () => {
             <div className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-green-500 rounded-full ring-2 ring-black"></div>
           </div>
           <div>
-            <h2 className="text-white font-semibold tracking-wide">Lexicon AI</h2>
-            <p className="text-[10px] text-gray-400">Online • Ready to assist</p>
+            <h2 className="text-white font-semibold tracking-wide">
+              Lexicon AI
+            </h2>
+            <p className="text-[10px] text-gray-400">
+              Online • Ready to assist
+            </p>
           </div>
         </div>
         <div className="flex gap-4">
           <button className="text-gray-400 hover:text-white transition-colors">
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 12H4" />
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={1.5}
+                d="M20 12H4"
+              />
             </svg>
           </button>
           <button className="text-gray-400 hover:text-white transition-colors">
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={1.5}
+                d="M6 18L18 6M6 6l12 12"
+              />
             </svg>
           </button>
         </div>
@@ -93,22 +117,22 @@ const ChatComponent = () => {
 
       {/* Chat Area */}
       <div className="flex-1 overflow-y-auto bg-[#0a0a0a] space-y-6 p-6 chat-scrollbar">
-        {/* Welcome Message */}
-        {chatHistory.length === 0 && (
-          <div className="flex items-start gap-3 animate-fade-in">
-            <img
-              src="/lexicon/lexicon-logo.png"
-              alt="Lexicon AI"
-              className="h-8 w-8 rounded-full ring-2 ring-white/20"
-            />
-            <div className="bg-gradient-to-br from-[#1e1e1e] to-[#1a1a1a] text-white/90 rounded-2xl rounded-tl-none px-5 py-4 max-w-[85%] shadow-xl">
-              <p className="text-white font-medium">👋 Welcome to Lexicon AI</p>
-              <p className="mt-2 text-white/70 text-sm leading-relaxed">
-                I'm your specialized assistant for the Solana blockchain. Ask me anything about development, transactions, or exploring the ecosystem!
-              </p>
-            </div>
+        {/* Welcome Message - Now always visible */}
+        <div className="flex items-start gap-3 animate-fade-in">
+          <img
+            src="/lexicon/lexicon-logo.png"
+            alt="Lexicon AI"
+            className="h-8 w-8 rounded-full ring-2 ring-white/20"
+          />
+          <div className="bg-gradient-to-br from-[#1e1e1e] to-[#1a1a1a] text-white/90 rounded-2xl rounded-tl-none px-5 py-4 max-w-[85%] shadow-xl">
+            <p className="text-white font-medium">👋 Welcome to Lexicon AI</p>
+            <p className="mt-2 text-white/70 text-sm leading-relaxed">
+              I'm your specialized assistant for the Solana blockchain. Ask me
+              anything about development, transactions, or exploring the
+              ecosystem!
+            </p>
           </div>
-        )}
+        </div>
 
         {/* Chat Messages */}
         {chatHistory.map((message, index) => (
@@ -127,14 +151,16 @@ const ChatComponent = () => {
             )}
             <div
               className={`relative max-w-[85%] shadow-lg ${
-                message.role === "user" 
-                  ? "bg-gradient-to-r from-white/90 to-white/80 text-black rounded-2xl rounded-br-none" 
+                message.role === "user"
+                  ? "bg-gradient-to-r from-white/90 to-white/80 text-black rounded-2xl rounded-br-none"
                   : "bg-gradient-to-br from-[#1e1e1e] to-[#1a1a1a] text-white/90 rounded-2xl rounded-tl-none"
               } px-5 py-4 hover:shadow-xl transition-shadow duration-200`}
             >
-              <ReactMarkdown className={`prose prose-sm max-w-none ${
-                message.role === "user" ? "prose-black" : "prose-invert"
-              }`}>
+              <ReactMarkdown
+                className={`prose prose-sm max-w-none ${
+                  message.role === "user" ? "prose-black" : "prose-invert"
+                }`}
+              >
                 {message.content}
               </ReactMarkdown>
             </div>
@@ -164,10 +190,16 @@ const ChatComponent = () => {
               type="text"
               value={userInput}
               onChange={(e) => setUserInput(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && !isGenerating && startChat()}
+              onKeyDown={(e) =>
+                e.key === "Enter" && !isGenerating && startChat()
+              }
               disabled={isGenerating}
               className="w-full px-5 py-3.5 bg-[#1a1a1a] text-white rounded-2xl border border-gray-800 focus:outline-none focus:border-white/50 focus:ring-2 focus:ring-white/10 placeholder-gray-500 transition-all duration-200"
-              placeholder={isGenerating ? "Lexicon is thinking..." : "Ask anything about Solana..."}
+              placeholder={
+                isGenerating
+                  ? "Lexicon is thinking..."
+                  : "Ask anything about Solana..."
+              }
             />
             <div className="absolute inset-x-0 -bottom-px h-px bg-gradient-to-r from-transparent via-white/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           </div>
@@ -176,16 +208,26 @@ const ChatComponent = () => {
             disabled={isGenerating || !userInput.trim()}
             className="p-3.5 bg-white hover:bg-gray-100 text-black rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 shadow-lg hover:shadow-white/20 disabled:hover:shadow-none"
           >
-            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h14m-7-7l7 7-7 7" />
+            <svg
+              className="w-5 h-5"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M5 12h14m-7-7l7 7-7 7"
+              />
             </svg>
           </button>
         </div>
         <div className="mt-3 flex items-center justify-center">
-          <a 
-            href="https://lexicon.chat" 
-            target="_blank" 
-            rel="noopener noreferrer" 
+          <a
+            href="https://lexicon.chat"
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#1a1a1a] hover:bg-[#1a1a1a] border border-gray-800/50 transition-colors"
           >
             <span className="text-xs text-gray-500">AI Agent powered by</span>

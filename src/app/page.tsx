@@ -12,12 +12,16 @@ export default function Home() {
       <div className="absolute top-4 right-4 z-10">
         <WalletConnectButton />
       </div>
-      
+
       <div className="text-center space-y-6 mb-12">
         <div className="flex justify-center mb-8">
-          <img src="/lexicon/lexicon-logo.png" alt="Lexicon" className="h-16 w-auto" />
+          <img
+            src="/lexicon/lexicon-logo.png"
+            alt="Lexicon"
+            className="h-16 w-auto"
+          />
         </div>
-        
+
         <h1 className="text-6xl font-bold text-black">
           Welcome to <span className="text-black">Lexicon</span>
         </h1>
