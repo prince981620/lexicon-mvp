@@ -23,8 +23,8 @@ export default function WalletConnection() {
   }
 
   return (
-    <div className="flex flex-col items-center gap-3 p-4 rounded-lg bg-gradient-to-r from-blue-500/10 to-purple-500/10 backdrop-blur-sm border border-gray-200/20">
-      <WalletMultiButton className="!bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 transition-all duration-200 !rounded-full !px-6" />
+    <div className="flex flex-col items-center gap-3 p-4 rounded-lg bg-gradient-to-r from-black/10 to-gray-900/10 backdrop-blur-sm border border-gray-200/20">
+      <WalletMultiButton className="wallet-adapter-button-trigger !bg-gradient-to-r from-[#1e1e1e] to-[#1a1a1a] hover:from-[#2a2a2a] hover:to-[#222222] !text-white/90 !border !border-gray-800/50 !rounded-xl !py-2.5 !px-4 !h-auto !text-sm font-medium transition-all duration-200 hover:scale-[1.02] hover:shadow-lg" />
       {connected && (
         <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
           <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />

@@ -16,7 +16,7 @@ const WalletConnectButton: React.FC = () => {
 
   return (
     <div>
-      <WalletMultiButton className="!bg-[#1a1a1a] hover:!bg-[#2a2a2a] !text-white/90 !border !border-gray-800/50 !rounded-xl !py-2 !px-4 !h-auto !text-sm font-medium transition-colors duration-200" />
+      <WalletMultiButton className="wallet-adapter-button-trigger !bg-gradient-to-r from-[#1e1e1e] to-[#1a1a1a] hover:from-[#2a2a2a] hover:to-[#222222] !text-white/90 !border !border-gray-800/50 !rounded-xl !py-2.5 !px-4 !h-auto !text-sm font-medium transition-all duration-200 hover:scale-[1.02] hover:shadow-lg" />
     </div>
   );
 };

@@ -129,3 +129,30 @@ body {
     transform: translateY(0);
   }
 }
+
+/* Add these styles */
+.wallet-adapter-button-trigger {
+  background: none !important;
+  outline: none !important;
+}
+
+.wallet-adapter-button:not([disabled]):hover {
+  background: none !important;
+}
+
+.wallet-adapter-modal-wrapper {
+  background: linear-gradient(to bottom, #1a1a1a, #0a0a0a) !important;
+}
+
+.wallet-adapter-modal-button-close {
+  background: #2a2a2a !important;
+}
+
+.wallet-adapter-modal-title {
+  color: white !important;
+}
+
+.wallet-adapter-modal-list-more {
+  color: white !important;
+  background: #2a2a2a !important;
+}
