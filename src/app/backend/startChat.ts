@@ -1,6 +1,6 @@
 // src/chat.ts
 import { OpenAI } from "openai";
-import { tools } from "@/app/types/functionDefs";
+import { tools } from "./data/functionDefs";
 import { ChatCompletionMessageParam } from "openai/resources/chat/completions";
 
 const apiKey = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
