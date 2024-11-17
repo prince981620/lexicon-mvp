@@ -6,7 +6,7 @@ export const sendMessageLexicon = async (userInput: string): Promise<ChatRespons
   messageHistory.push({ role: "user", content: userInput });
 
   try {
-    const response = await fetch("http://localhost:3000/api/startChat", {
+    const response = await fetch("/api/startChat", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -23,7 +23,6 @@ export const sendMessageLexicon = async (userInput: string): Promise<ChatRespons
 
     const data = await response.json();
 
-    // Add assistant's response to history
     if (data.response.content) {
       messageHistory.push({
         role: "assistant",
