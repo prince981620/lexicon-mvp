@@ -27,7 +27,7 @@ export const functionHandlers: Record<string, FunctionHandler> = {
         lastValidBlockHeight: latestBlockhash.lastValidBlockHeight,
       });
 
-      return `Transaction successful! Signature: ${signature}`;
+      return `Transaction successful! ✅\n\n[**View on Solscan**](https://solscan.io/tx/${signature})`;
     } catch (error: unknown) {
       console.error("Transaction error:", error);
       if (error instanceof Error) {
