@@ -102,7 +102,7 @@ const ChatComponent = () => {
             </div>
             <div className="flex items-center gap-4">
               <WalletConnectButton />
-              <button 
+              <button
                 onClick={() => setIsChatOpen(false)}
                 className="text-gray-400 hover:text-white transition-colors"
               >
@@ -120,7 +120,7 @@ const ChatComponent = () => {
                   />
                 </svg>
               </button>
-              <button 
+              <button
                 onClick={() => setIsChatOpen(false)}
                 className="text-gray-400 hover:text-white transition-colors"
               >
@@ -151,10 +151,12 @@ const ChatComponent = () => {
                 className="h-8 w-8 rounded-full ring-2 ring-white/20"
               />
               <div className="bg-gradient-to-br from-[#1e1e1e] to-[#1a1a1a] text-white/90 rounded-2xl rounded-tl-none px-5 py-4 max-w-[85%] shadow-xl">
-                <p className="text-white font-medium">👋 Welcome to Lexicon AI</p>
+                <p className="text-white font-medium">
+                  👋 Welcome to Lexicon AI
+                </p>
                 <p className="mt-2 text-white/70 text-sm leading-relaxed">
-                  I'm your specialized assistant for the Solana blockchain. Ask me
-                  anything about development, transactions, or exploring the
+                  I'm your specialized assistant for the Solana blockchain. Ask
+                  me anything about development, transactions, or exploring the
                   ecosystem!
                 </p>
               </div>
@@ -256,7 +258,9 @@ const ChatComponent = () => {
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#1a1a1a] hover:bg-[#1a1a1a] border border-gray-800/50 transition-colors"
               >
-                <span className="text-xs text-gray-500">AI Agent powered by</span>
+                <span className="text-xs text-gray-500">
+                  AI Agent powered by
+                </span>
                 <div className="flex items-center gap-1.5">
                   <img
                     src="/lexicon/lexicon-logo-dark.png"
