@@ -60,84 +60,144 @@ const ChatComponent = () => {
   };
 
   return (
-    <div className="w-full h-[600px] flex flex-col rounded-2xl bg-white border border-gray-200 shadow-lg">
-      {/* Lexicon Header */}
-      <div className="flex items-center gap-3 p-4 border-b border-gray-100">
-        <img
-          src="/lexicon/lexicon-logo.png"
-          alt="Lexicon AI"
-          className="h-8 w-8"
-        />
-        <h2 className="text-xl font-semibold text-black">
-          Lexicon AI Assistant
-        </h2>
+    <div className="w-full h-[700px] flex flex-col rounded-3xl bg-white/95 backdrop-blur-sm border border-gray-100 shadow-2xl">
+      {/* Enhanced Lexicon Header */}
+      <div className="flex items-center gap-4 p-6 border-b border-gray-100/50">
+        <div className="flex items-center gap-3 flex-1">
+          <div className="relative">
+            <img
+              src="/lexicon/lexicon-logo.png"
+              alt="Lexicon AI"
+              className="h-10 w-10 rounded-xl shadow-lg"
+            />
+            <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-white" />
+          </div>
+          <div>
+            <h2 className="text-xl font-bold text-black">Lexicon AI</h2>
+            <p className="text-xs text-gray-500">Powered by Lexicon Labs</p>
+          </div>
+        </div>
       </div>
 
-      {/* Chat History */}
-      <div className="flex-1 p-6 overflow-y-auto space-y-4 chat-scrollbar">
+      {/* Enhanced Chat History */}
+      <div className="flex-1 p-6 overflow-y-auto space-y-6 chat-scrollbar">
         {chatHistory.map((message, index) => (
           <div
             key={index}
             className={`flex ${
               message.role === "user" ? "justify-end" : "justify-start"
-            }`}
+            } items-end gap-3`}
           >
             {message.role === "assistant" && (
-              <img
-                src="/lexicon/lexicon-logo.png"
-                alt="Lexicon AI"
-                className="h-6 w-6 mr-2 self-end"
-              />
+              <div className="flex-shrink-0">
+                <img
+                  src="/lexicon/lexicon-logo.png"
+                  alt="Lexicon AI"
+                  className="h-8 w-8 rounded-xl shadow-md"
+                />
+              </div>
             )}
             <div
-              className={`max-w-[80%] px-4 py-2 rounded-2xl ${
-                message.role === "user"
-                  ? "bg-black text-white rounded-br-none"
-                  : "bg-gray-50 text-black rounded-bl-none border border-gray-100"
+              className={`relative group transition-all duration-200 ${
+                message.role === "user" ? "ml-12" : "mr-12"
               }`}
             >
-              <div className="text-sm prose prose-sm dark:prose-invert">
-                <ReactMarkdown>{message.content}</ReactMarkdown>
+              <div
+                className={`px-5 py-3 rounded-2xl ${
+                  message.role === "user"
+                    ? "bg-gradient-to-br from-black to-gray-800 text-white rounded-br-none shadow-lg"
+                    : "bg-gray-50 text-black rounded-bl-none border border-gray-100 shadow-sm"
+                }`}
+              >
+                <div className="prose prose-sm max-w-none dark:prose-invert">
+                  <ReactMarkdown>{message.content}</ReactMarkdown>
+                </div>
               </div>
+              <span className="absolute bottom-0 text-xs text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                {new Date().toLocaleTimeString()}
+              </span>
             </div>
           </div>
         ))}
         {isGenerating && (
-          <div className="flex items-start">
-            <img
-              src="/lexicon/lexicon-logo.png"
-              alt="Lexicon AI"
-              className="h-6 w-6 mr-2 self-end"
-            />
-            <div className="max-w-[80%] px-4 py-2 rounded-2xl bg-gray-50 border border-gray-100">
+          <div className="flex items-start gap-3">
+            <div className="flex-shrink-0">
+              <img
+                src="/lexicon/lexicon-logo.png"
+                alt="Lexicon AI"
+                className="h-8 w-8 rounded-xl shadow-md"
+              />
+            </div>
+            <div className="px-5 py-3 rounded-2xl bg-gray-50 border border-gray-100 shadow-sm">
               <LoadingSpinner />
             </div>
           </div>
         )}
       </div>
 
-      {/* Input Area */}
-      <div className="p-4 border-t border-gray-100">
-        <div className="flex gap-2">
-          <input
-            type="text"
-            value={userInput}
-            onChange={(e) => setUserInput(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && !isGenerating && startChat()}
-            disabled={isGenerating}
-            className="flex-1 px-4 py-2 bg-gray-50 text-black rounded-full border border-gray-200 focus:outline-none focus:border-gray-300 transition-colors disabled:opacity-50"
-            placeholder={
-              isGenerating
-                ? "Waiting for response..."
-                : "Ask Lexicon AI anything..."
-            }
-          />
+      {/* Enhanced Input Area */}
+      <div className="p-6 border-t border-gray-100/50 bg-gray-50/50">
+        <div className="flex gap-3">
+          <div className="relative flex-1">
+            <input
+              type="text"
+              value={userInput}
+              onChange={(e) => setUserInput(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && !isGenerating && startChat()}
+              disabled={isGenerating}
+              className="w-full px-6 py-4 bg-white text-black rounded-2xl border border-gray-200 shadow-sm focus:outline-none focus:border-gray-300 focus:ring-2 focus:ring-gray-100 transition-all disabled:opacity-50 pr-12"
+              placeholder={
+                isGenerating
+                  ? "Lexicon AI is thinking..."
+                  : "Message Lexicon AI..."
+              }
+            />
+            {userInput && (
+              <button
+                onClick={() => setUserInput("")}
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+              >
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            )}
+          </div>
           <button
             onClick={startChat}
             disabled={isGenerating}
-            className="px-6 py-2 bg-black text-white rounded-full hover:bg-gray-900 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-8 py-4 bg-black text-white rounded-2xl hover:bg-gray-900 active:bg-gray-800 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl flex items-center gap-2"
           >
-            Send
+            {isGenerating ? (
+              "Processing..."
+            ) : (
+              <>
+                Send
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M14 5l7 7m0 0l-7 7m7-7H3"
+                  />
+                </svg>
+              </>
+            )}
           </button>
         </div>
       </div>
