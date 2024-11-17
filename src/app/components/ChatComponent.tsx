@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // src/app/components/ChatComponent.tsx
 import { useState } from "react";
-import { sendMessage } from "../backend/sendMessage";
+import { sendMessageLexicon } from "../backend/sendMessage";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { create_solana_transaction } from "../utils/solanaTransactions";
 import LoadingSpinner from "./LoadingSpinner";
@@ -64,7 +64,7 @@ const ChatComponent = () => {
     setIsGenerating(true);
 
     try {
-      const response: ChatResponse = await sendMessage(userInput);
+      const response: ChatResponse = await sendMessageLexicon(userInput);
 
       if (response.content) {
         const gptMessage = { role: "assistant", content: response.content };
@@ -161,7 +161,7 @@ const ChatComponent = () => {
             type="text"
             value={userInput}
             onChange={(e) => setUserInput(e.target.value)}
-            onKeyPress={(e) =>
+            onKeyDown={(e) => 
               e.key === "Enter" && !isGenerating && startChat()
             }
             disabled={isGenerating}
