@@ -1,6 +1,6 @@
 export const tools = [
   {
-    name: "create_solana_transaction",
+    name: "send_solana_transaction",
     description:
       "Creates a Solana transaction to send a specified amount of SOL to a recipient wallet.",
     strict: true,

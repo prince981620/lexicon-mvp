@@ -1,57 +1,16 @@
 import { useState } from "react";
 import { sendMessageLexicon } from "../backend/sendMessage";
 import { useWallet } from "@solana/wallet-adapter-react";
-import { create_solana_transaction } from "../utils/solanaTransactions";
 import LoadingSpinner from "./LoadingSpinner";
 import { ChatResponse, FrontendMessage } from "../types/types";
-import ReactMarkdown from 'react-markdown';
+import ReactMarkdown from "react-markdown";
+import { executeFunctionCall } from "../utils/functionHandlers";
 
 const ChatComponent = () => {
   const wallet = useWallet();
   const [chatHistory, setChatHistory] = useState<FrontendMessage[]>([]);
   const [userInput, setUserInput] = useState<string>("");
   const [isGenerating, setIsGenerating] = useState(false);
-
-  const handleFunctionCall = async (functionCall: any) => {
-    if (functionCall.name === "create_solana_transaction") {
-      if (!wallet.connected || !wallet.signTransaction || !wallet.publicKey) {
-        return "Please connect your wallet first";
-      }
-
-      try {
-        const { transaction, connection } = await create_solana_transaction(
-          functionCall.arguments.recipient_wallet,
-          functionCall.arguments.amount_sol,
-          wallet.publicKey
-        );
-
-        // Sign the transaction
-        const signedTx = await wallet.signTransaction(transaction);
-
-        // Send the transaction
-        const signature = await connection.sendRawTransaction(
-          signedTx.serialize()
-        );
-
-        // Wait for confirmation
-        const latestBlockhash = await connection.getLatestBlockhash();
-        await connection.confirmTransaction({
-          signature,
-          blockhash: latestBlockhash.blockhash,
-          lastValidBlockHeight: latestBlockhash.lastValidBlockHeight,
-        });
-
-        return `Transaction successful! Signature: ${signature}`;
-      } catch (error: unknown) {
-        console.error("Transaction error:", error);
-        if (error instanceof Error) {
-          return `Transaction failed: ${error.message}`;
-        }
-        return "Transaction failed: Unknown error occurred";
-      }
-    }
-    return null;
-  };
 
   const startChat = async () => {
     if (userInput.trim() === "") return;
@@ -70,7 +29,10 @@ const ChatComponent = () => {
       }
 
       if (response.functionCall) {
-        const functionResult = await handleFunctionCall(response.functionCall);
+        const functionResult = await executeFunctionCall(
+          response.functionCall,
+          wallet
+        );
         const functionMessage = {
           role: "assistant",
           content:
@@ -161,9 +123,7 @@ const ChatComponent = () => {
             type="text"
             value={userInput}
             onChange={(e) => setUserInput(e.target.value)}
-            onKeyDown={(e) => 
-              e.key === "Enter" && !isGenerating && startChat()
-            }
+            onKeyDown={(e) => e.key === "Enter" && !isGenerating && startChat()}
             disabled={isGenerating}
             className="flex-1 px-4 py-2 bg-gray-50 text-black rounded-full border border-gray-200 focus:outline-none focus:border-gray-300 transition-colors disabled:opacity-50"
             placeholder={
