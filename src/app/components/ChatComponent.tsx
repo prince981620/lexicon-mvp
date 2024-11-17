@@ -4,6 +4,7 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import { create_solana_transaction } from "../utils/solanaTransactions";
 import LoadingSpinner from "./LoadingSpinner";
 import { ChatResponse, FrontendMessage } from "../types/types";
+import ReactMarkdown from 'react-markdown';
 
 const ChatComponent = () => {
   const wallet = useWallet();
@@ -133,7 +134,9 @@ const ChatComponent = () => {
                   : "bg-gray-50 text-black rounded-bl-none border border-gray-100"
               }`}
             >
-              <p className="text-sm">{message.content}</p>
+              <div className="text-sm prose prose-sm dark:prose-invert">
+                <ReactMarkdown>{message.content}</ReactMarkdown>
+              </div>
             </div>
           </div>
         ))}
