@@ -1,10 +1,10 @@
 const LoadingSpinner = () => (
   <div className="flex items-center space-x-2">
-    <div className="spinner">
-      <div className="double-bounce1"></div>
-      <div className="double-bounce2"></div>
+    <div className="flex space-x-1.5">
+      <div className="w-2 h-2 bg-white/70 rounded-full animate-pulse"></div>
+      <div className="w-2 h-2 bg-white/50 rounded-full animate-pulse [animation-delay:-0.15s]"></div>
+      <div className="w-2 h-2 bg-white/30 rounded-full animate-pulse [animation-delay:-0.3s]"></div>
     </div>
-    <span className="text-sm text-gray-500">Generating response...</span>
   </div>
 );
 
