@@ -14,7 +14,7 @@ export const tools = [
         },
         recipient_wallet: {
           type: "string",
-          description: "The recipient's wallet address in base58 format.",
+          description: "The recipient's Solana wallet address.",
         },
       },
       additionalProperties: false,
