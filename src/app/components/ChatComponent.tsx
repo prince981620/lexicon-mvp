@@ -5,6 +5,7 @@ import LoadingSpinner from "./LoadingSpinner";
 import { ChatResponse, FrontendMessage } from "../types/types";
 import ReactMarkdown from "react-markdown";
 import { executeFunctionCall } from "../utils/executeFunctionCall";
+import WalletConnectButton from "./WalletConnectButton";
 
 const ChatComponent = () => {
   const wallet = useWallet();
@@ -81,7 +82,8 @@ const ChatComponent = () => {
             </p>
           </div>
         </div>
-        <div className="flex gap-4">
+        <div className="flex items-center gap-4">
+          <WalletConnectButton />
           <button className="text-gray-400 hover:text-white transition-colors">
             <svg
               className="w-5 h-5"

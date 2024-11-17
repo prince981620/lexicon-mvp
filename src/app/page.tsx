@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import WalletConnectButton from "../app/components/WalletConnectButton";
 import ChatComponent from "../app/components/ChatComponent";
 
 export default function Home() {
@@ -9,9 +8,6 @@ export default function Home() {
 
   return (
     <main className="min-h-screen flex flex-col items-center px-4 py-12 relative">
-      <div className="absolute top-4 right-4 z-10">
-        <WalletConnectButton />
-      </div>
 
       <div className="text-center space-y-6 mb-12">
         <div className="flex justify-center mb-8">
