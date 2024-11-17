@@ -2,6 +2,7 @@ import { OpenAI } from "openai";
 import { tools } from "./data/functionDefs";
 import { ChatCompletionMessageParam } from "openai/resources/chat/completions";
 import { Message } from "../types/types";
+import { systemPrompt } from "./data/systemPrompt";
 
 const apiKey = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
 const model = process.env.NEXT_PUBLIC_AI_MODEL as string;
@@ -17,10 +18,11 @@ export const startChat = async (messages: Message[]) => {
       messages: [
         {
           role: "system",
-          content: "You are Lexicon AI, a helpful assistant specializing in Solana blockchain interactions. You communicate in a friendly, professional manner while maintaining technical accuracy."
+          content: systemPrompt
         },
         ...(messages as ChatCompletionMessageParam[])
       ],
+      temperature: 0.3,
       tools: tools.map((tool) => ({
         type: "function" as const,
         function: {
