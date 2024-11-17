@@ -2,19 +2,10 @@
 import { OpenAI } from "openai";
 import { tools } from "./data/functionDefs";
 import { ChatCompletionMessageParam } from "openai/resources/chat/completions";
+import { Message } from "../types/types";
 
 const apiKey = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
 const model = process.env.NEXT_PUBLIC_AI_MODEL as string;
-
-interface Message {
-  role: "system" | "user" | "assistant" | "function";
-  content: string;
-  name?: string;
-  function_call?: {
-    name: string;
-    arguments: string;
-  };
-}
 
 export const startChat = async (messages: Message[]) => {
   const openai = new OpenAI({

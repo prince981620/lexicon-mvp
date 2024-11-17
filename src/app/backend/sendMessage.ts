@@ -4,8 +4,7 @@ import { ChatResponse, Message } from "../types/types";
 
 let messageHistory: Message[] = [];
 
-export const sendMessage = async (userInput: string): Promise<ChatResponse> => {
-  // Add user message to history
+export const sendMessageLexicon = async (userInput: string): Promise<ChatResponse> => {
   messageHistory.push({ role: "user", content: userInput });
 
   try {
