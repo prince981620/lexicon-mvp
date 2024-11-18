@@ -1,6 +1,5 @@
 import { create_solana_transaction, create_jupiter_swap } from "../../utils/solanaTransactions";
 import { FunctionHandler } from "../../types/types";
-import { Connection, clusterApiUrl } from "@solana/web3.js";
 
 // Map of function names to their handlers
 export const functionHandlers: Record<string, FunctionHandler> = {
@@ -37,22 +36,19 @@ export const functionHandlers: Record<string, FunctionHandler> = {
       return "Transaction failed: Unknown error occurred";
     }
   },
-  // Add more function handlers here as needed
-  // example_function: async (args, wallet) => { ... }
+
   swap_tokens: async (args, wallet) => {
     if (!wallet.connected || !wallet.signTransaction || !wallet.publicKey) {
       return "Please connect your wallet first";
     }
 
     try {
-      const connection = new Connection(clusterApiUrl("mainnet-beta"), "confirmed");
-      const { transaction } = await create_jupiter_swap(
+      const { transaction, connection } = await create_jupiter_swap(
         args.inputMint,
         args.outputMint,
         args.amount,
         args.slippageBps,
         wallet.publicKey.toString(),
-        connection
       );
 
       const signedTx = await wallet.signTransaction(transaction);
