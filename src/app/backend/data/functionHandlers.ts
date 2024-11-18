@@ -1,6 +1,7 @@
 import { create_solana_transaction, create_jupiter_swap } from "../../utils/solanaTransactions";
 import { FunctionHandler } from "../../types/types";
 import { Connection, clusterApiUrl } from "@solana/web3.js";
+import { getTokenMintAddress, getTokenInfo } from "../../utils/tokenMappings";
 
 // Map of function names to their handlers
 export const functionHandlers: Record<string, FunctionHandler> = {
@@ -45,11 +46,29 @@ export const functionHandlers: Record<string, FunctionHandler> = {
     }
 
     try {
+      // Get token info including decimals
+      const [inputTokenInfo, outputTokenInfo] = await Promise.all([
+        getTokenInfo(args.inputToken),
+        getTokenInfo(args.outputToken)
+      ]);
+
+      // Add validation for reasonable amounts
+      if (args.amount <= 0) {
+        throw new Error("Amount must be greater than 0");
+      }
+      if (args.amount > 1000000) {  // Reasonable maximum threshold
+        throw new Error("Amount too large");
+      }
+
+      // Calculate amount with proper decimals
+      const inputDecimals = inputTokenInfo.decimals;
+      const amountWithDecimals = Math.round(args.amount * Math.pow(10, inputDecimals));
+
       const connection = new Connection(clusterApiUrl("mainnet-beta"), "confirmed");
       const { transaction } = await create_jupiter_swap(
-        args.inputMint,
-        args.outputMint,
-        args.amount,
+        inputTokenInfo.address,
+        outputTokenInfo.address,
+        amountWithDecimals,
         args.slippageBps,
         wallet.publicKey.toString(),
         connection
