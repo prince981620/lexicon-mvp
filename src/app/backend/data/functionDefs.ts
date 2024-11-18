@@ -26,19 +26,19 @@ export const tools = [
     strict: true,
     parameters: {
       type: "object",
-      required: ["inputMint", "outputMint", "amount", "slippageBps"],
+      required: ["inputToken", "outputToken", "amount", "slippageBps"],
       properties: {
-        inputMint: {
+        inputToken: {
           type: "string",
-          description: "The input token's mint address",
+          description: "The input token symbol or name (e.g., 'SOL', 'USDC', 'BONK') or (e.g., 'Solana', 'US Dollar Coin' or names with spaces aswell)",
         },
-        outputMint: {
+        outputToken: {
           type: "string",
-          description: "The output token's mint address",
+          description: "The output token symbol (e.g., 'SOL', 'USDC', 'BONK') or (e.g., 'Solana', 'US Dollar Coin' or names with spaces aswell)",
         },
         amount: {
           type: "number",
-          description: "The amount of input tokens (in smallest denomination)",
+          description: "The amount of input tokens in human-readable form (e.g., 0.5 SOL, not in lamports)",
         },
         slippageBps: {
           type: "number",
