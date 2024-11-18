@@ -14,7 +14,8 @@ export const tools = [
         },
         recipient_wallet: {
           type: "string",
-          description: "The recipient's Solana wallet address. guney means C43TUJNRzeo3cTQo7h9UYmqZwivUNp8tE1WTFdTLMmid",
+          description:
+            "The recipient's Solana wallet address. guney means C43TUJNRzeo3cTQo7h9UYmqZwivUNp8tE1WTFdTLMmid",
         },
       },
       additionalProperties: false,
@@ -30,15 +31,18 @@ export const tools = [
       properties: {
         inputToken: {
           type: "string",
-          description: "The input token symbol or name (e.g., 'SOL', 'USDC', 'BONK') or (e.g., 'Solana', 'US Dollar Coin' or names with spaces aswell)",
+          description:
+            "The input token symbol or name (e.g., 'SOL', 'USDC', 'BONK') or (e.g., 'Solana', 'US Dollar Coin' or names with spaces aswell)",
         },
         outputToken: {
           type: "string",
-          description: "The output token symbol (e.g., 'SOL', 'USDC', 'BONK') or (e.g., 'Solana', 'US Dollar Coin' or names with spaces aswell)",
+          description:
+            "The output token symbol (e.g., 'SOL', 'USDC', 'BONK') or (e.g., 'Solana', 'US Dollar Coin' or names with spaces aswell)",
         },
         amount: {
           type: "number",
-          description: "The amount of input tokens in human-readable form (e.g., 0.5 SOL, not in lamports)",
+          description:
+            "The amount of input tokens in human-readable form (e.g., 0.5 SOL, not in lamports)",
         },
         slippageBps: {
           type: "number",

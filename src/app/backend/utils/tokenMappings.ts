@@ -9,10 +9,12 @@ interface TokenInfo {
 
 export async function getTokenInfo(tokenQuery: string): Promise<TokenInfo> {
   try {
-    const response = await fetch(`/api/token?q=${encodeURIComponent(tokenQuery)}`);
+    const response = await fetch(
+      `/api/token?q=${encodeURIComponent(tokenQuery)}`
+    );
     if (!response.ok) {
       const error = await response.json();
-      throw new Error(error.error || 'Failed to fetch token');
+      throw new Error(error.error || "Failed to fetch token");
     }
     const token = await response.json();
     return token;

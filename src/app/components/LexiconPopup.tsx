@@ -1,11 +1,13 @@
 import { useState, useRef, useEffect } from "react";
-import { sendMessageLexicon } from "../backend/utils/sendMessage";
 import { useWallet } from "@solana/wallet-adapter-react";
 import LoadingSpinner from "./LoadingSpinner";
 import { ChatResponse, FrontendMessage } from "../types/types";
 import ReactMarkdown from "react-markdown";
-import { executeFunctionCall } from "../backend/utils/executeFunctionCall";
 import WalletConnectButton from "./WalletConnectButton";
+import {
+  sendMessageLexicon,
+  executeFunctionCall,
+} from "../backend/utils/communications";
 
 const ChatComponent = () => {
   const wallet = useWallet();
@@ -17,7 +19,8 @@ const ChatComponent = () => {
 
   useEffect(() => {
     if (chatContainerRef.current) {
-      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+      chatContainerRef.current.scrollTop =
+        chatContainerRef.current.scrollHeight;
     }
   }, [chatHistory, isGenerating]);
 
@@ -149,7 +152,7 @@ const ChatComponent = () => {
           </div>
 
           {/* Chat Area */}
-          <div 
+          <div
             ref={chatContainerRef}
             className="flex-1 overflow-y-auto bg-[#0a0a0a] space-y-6 p-6 chat-scrollbar"
           >

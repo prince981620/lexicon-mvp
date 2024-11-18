@@ -18,9 +18,9 @@ export const startChat = async (messages: Message[]) => {
       messages: [
         {
           role: "system",
-          content: systemPrompt
+          content: systemPrompt,
         },
-        ...(messages as ChatCompletionMessageParam[])
+        ...(messages as ChatCompletionMessageParam[]),
       ],
       temperature: 0.3,
       tools: tools.map((tool) => ({
