@@ -29,6 +29,18 @@ export const sendMessageLexicon = async (userInput: string): Promise<ChatRespons
         content: data.response.content,
       });
     }
+
+    if (data.response.functionCall) {
+      messageHistory.push({
+        role: "assistant",
+        content: `Function Called: ${data.response.functionCall.name}\nArguments: ${JSON.stringify(
+          data.response.functionCall.arguments,
+          null,
+          2
+        )}`,
+      });
+    }
+
     return data.response;
   } catch (error) {
     console.error("Error sending message:", error);
