@@ -1,5 +1,5 @@
 import "./globals.css";
-import { WalletContextProvider } from "../app/components/WalletContextProvider";
+import { WalletContextProvider } from "./components/WalletProvider/WalletContextProvider";
 
 export const metadata = {
   title: "Lexicon - AI assistant for Solana",

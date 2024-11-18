@@ -3,7 +3,7 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import LoadingSpinner from "./LoadingSpinner";
 import { ChatResponse, FrontendMessage } from "../types/types";
 import ReactMarkdown from "react-markdown";
-import WalletConnectButton from "./WalletConnectButton";
+import WalletConnectButton from "./WalletProvider/WalletConnectButton";
 import {
   sendMessageLexicon,
   executeFunctionCall,
