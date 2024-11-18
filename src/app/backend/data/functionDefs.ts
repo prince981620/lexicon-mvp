@@ -20,4 +20,32 @@ export const tools = [
       additionalProperties: false,
     },
   },
+  {
+    name: "swap_tokens",
+    description: "Swaps tokens using Jupiter Exchange on Solana.",
+    strict: true,
+    parameters: {
+      type: "object",
+      required: ["inputMint", "outputMint", "amount", "slippageBps"],
+      properties: {
+        inputMint: {
+          type: "string",
+          description: "The input token's mint address",
+        },
+        outputMint: {
+          type: "string",
+          description: "The output token's mint address",
+        },
+        amount: {
+          type: "number",
+          description: "The amount of input tokens (in smallest denomination)",
+        },
+        slippageBps: {
+          type: "number",
+          description: "Slippage tolerance in basis points (e.g., 50 = 0.5%)",
+        },
+      },
+      additionalProperties: false,
+    },
+  },
 ];

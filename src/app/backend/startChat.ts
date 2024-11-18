@@ -4,7 +4,7 @@ import { ChatCompletionMessageParam } from "openai/resources/chat/completions";
 import { Message } from "../types/types";
 import { systemPrompt } from "./data/systemPrompt";
 
-const apiKey = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
+const apiKey = process.env.OPENAI_API_KEY;
 const model = process.env.NEXT_PUBLIC_AI_MODEL as string;
 
 export const startChat = async (messages: Message[]) => {
