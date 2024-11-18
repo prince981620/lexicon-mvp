@@ -1,6 +1,6 @@
 "use client";
 
-import ChatComponent from "../app/components/ChatComponent";
+import ChatComponent from "./components/LexiconPopup";
 
 export default function Home() {
   return (

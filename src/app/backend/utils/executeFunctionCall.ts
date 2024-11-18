@@ -1,5 +1,5 @@
-import { FunctionCall } from "../types/types";
-import { functionHandlers } from "../backend/data/functionHandlers";
+import { FunctionCall } from "../../types/types";
+import { functionHandlers } from "../data/functionHandlers";
 import { WalletContextState } from "@solana/wallet-adapter-react";
 
 export const executeFunctionCall = async (

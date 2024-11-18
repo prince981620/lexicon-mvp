@@ -1,7 +1,7 @@
-import { create_solana_transaction, create_jupiter_swap } from "../../utils/solanaTransactions";
+import { create_solana_transaction, create_jupiter_swap } from "../utils/solanaTransactions";
 import { FunctionHandler } from "../../types/types";
 import { Connection, clusterApiUrl } from "@solana/web3.js";
-import { getTokenMintAddress, getTokenInfo } from "../../utils/tokenMappings";
+import { getTokenInfo } from "../utils/tokenMappings";
 
 // Map of function names to their handlers
 export const functionHandlers: Record<string, FunctionHandler> = {

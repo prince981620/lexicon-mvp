@@ -1,5 +1,5 @@
 import type { NextRequest } from "next/server";
-import { startChat } from "@/app/backend/startChat";
+import { startChat } from "@/app/backend/utils/startChat";
 
 // Add origin validation
 const validateOrigin = (request: NextRequest) => {

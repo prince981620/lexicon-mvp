@@ -1,10 +1,10 @@
 import { useState, useRef, useEffect } from "react";
-import { sendMessageLexicon } from "../backend/sendMessage";
+import { sendMessageLexicon } from "../backend/utils/sendMessage";
 import { useWallet } from "@solana/wallet-adapter-react";
 import LoadingSpinner from "./LoadingSpinner";
 import { ChatResponse, FrontendMessage } from "../types/types";
 import ReactMarkdown from "react-markdown";
-import { executeFunctionCall } from "../utils/executeFunctionCall";
+import { executeFunctionCall } from "../backend/utils/executeFunctionCall";
 import WalletConnectButton from "./WalletConnectButton";
 
 const ChatComponent = () => {

@@ -1,4 +1,4 @@
-import { ChatResponse, Message } from "../types/types";
+import { ChatResponse, Message } from "../../types/types";
 
 let messageHistory: Message[] = [];
 
