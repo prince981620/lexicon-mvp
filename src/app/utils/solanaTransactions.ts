@@ -7,9 +7,7 @@ import {
   LAMPORTS_PER_SOL,
   VersionedTransaction,
 } from "@solana/web3.js";
-import fetch from "cross-fetch";
-
-const connection = new Connection(clusterApiUrl("devnet"), "confirmed");
+import fetch from 'cross-fetch';
 
 export const create_solana_transaction = async (
   recipient_wallet: string,
@@ -17,6 +15,7 @@ export const create_solana_transaction = async (
   fromPubkey: PublicKey
 ) => {
   try {
+    const connection = new Connection(clusterApiUrl("devnet"), "confirmed");
     const toPubkey = new PublicKey(recipient_wallet);
 
     // Create transaction instruction
@@ -48,8 +47,14 @@ export async function create_jupiter_swap(
   outputMint: string,
   amount: number,
   slippageBps: number,
-  userPublicKey: string
+  userPublicKey: string,
+  connection?: Connection
 ) {
+  // Create connection if not provided
+  if (!connection) {
+    connection = new Connection(clusterApiUrl("mainnet-beta"), "confirmed");
+  }
+
   // Get quote
   const quoteResponse = await (
     await fetch(`https://quote-api.jup.ag/v6/quote?inputMint=${inputMint}\
@@ -60,23 +65,23 @@ export async function create_jupiter_swap(
 
   // Get swap transaction
   const { swapTransaction } = await (
-    await fetch("https://quote-api.jup.ag/v6/swap", {
-      method: "POST",
+    await fetch('https://quote-api.jup.ag/v6/swap', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         quoteResponse,
         userPublicKey,
         wrapAndUnwrapSol: true,
-        prioritizationFeeLamports: "auto",
+        prioritizationFeeLamports: 'auto',
         dynamicComputeUnitLimit: true,
-      }),
+      })
     })
   ).json();
 
-  // Deserialize the transaction
-  const swapTransactionBuf = Buffer.from(swapTransaction, "base64");
+  // Deserialize the transaction yo mama
+  const swapTransactionBuf = Buffer.from(swapTransaction, 'base64');
   const transaction = VersionedTransaction.deserialize(swapTransactionBuf);
 
   return { transaction, connection };
