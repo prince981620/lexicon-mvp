@@ -8,9 +8,9 @@ import {
   sendMessageLexicon,
   executeFunctionCall,
 } from "../utils/communications";
-import { tools as defaultTools } from "../backend/configs/default/functionDefs";
-import { systemPrompt as defaultSystemPrompt } from "../backend/configs/default/systemPrompt";
-import { functionHandlers as defaultFunctionHandlers } from "../backend/configs/default/functions";
+import { tools as defaultTools } from "../configs/default/functionDefs";
+import { systemPrompt as defaultSystemPrompt } from "../configs/default/systemPrompt";
+import { functionHandlers as defaultFunctionHandlers } from "../configs/default/functions";
 import { ChatConfig, ChatComponentProps } from "../types/types";
 
 const ChatComponent: React.FC<ChatComponentProps> = ({

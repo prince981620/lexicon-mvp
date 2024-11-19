@@ -1,5 +1,5 @@
 import { WalletContextState } from "@solana/wallet-adapter-react";
-import { tools as defaultTools } from "../backend/configs/default/functionDefs";
+import { tools as defaultTools } from "../configs/default/functionDefs";
 
 export interface FunctionCall {
   name: string;

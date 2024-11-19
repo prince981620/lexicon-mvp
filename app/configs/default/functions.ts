@@ -7,8 +7,8 @@ import {
   LAMPORTS_PER_SOL,
   VersionedTransaction,
 } from "@solana/web3.js";
-import { FunctionHandler } from "../../../types/types";
-import { getTokenInfo } from "../../../api/token/tokenMappings";
+import { FunctionHandler } from "../../types/types";
+import { getTokenInfo } from "../../api/token/tokenMappings";
 import fetch from "cross-fetch";
 
 // Transaction creation functions
@@ -19,7 +19,10 @@ const create_solana_transaction = async (
   rpcUrl?: string
 ) => {
   try {
-    const connection = new Connection(rpcUrl || clusterApiUrl("devnet"), "confirmed");
+    const connection = new Connection(
+      rpcUrl || clusterApiUrl("devnet"),
+      "confirmed"
+    );
     const toPubkey = new PublicKey(recipient_wallet);
 
     const transaction = new Transaction().add(
@@ -52,7 +55,10 @@ const create_jupiter_swap = async (
   userPublicKey: string,
   rpcUrl?: string
 ) => {
-  const connection = new Connection(rpcUrl || clusterApiUrl("mainnet-beta"), "confirmed");
+  const connection = new Connection(
+    rpcUrl || clusterApiUrl("mainnet-beta"),
+    "confirmed"
+  );
 
   const quoteResponse = await (
     await fetch(`https://quote-api.jup.ag/v6/quote?inputMint=${inputMint}\
@@ -152,7 +158,10 @@ export const functionHandlers: Record<string, FunctionHandler> = {
         rpcUrl
       );
 
-      const connection = new Connection(rpcUrl || clusterApiUrl("mainnet-beta"), "confirmed");
+      const connection = new Connection(
+        rpcUrl || clusterApiUrl("mainnet-beta"),
+        "confirmed"
+      );
       const signedTx = await wallet.signTransaction(transaction);
       const signature = await connection.sendRawTransaction(
         signedTx.serialize(),
