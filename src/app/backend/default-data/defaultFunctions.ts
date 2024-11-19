@@ -8,7 +8,7 @@ import {
   VersionedTransaction,
 } from "@solana/web3.js";
 import { FunctionHandler } from "../../types/types";
-import { getTokenInfo } from "../utils/tokenMappings";
+import { getTokenInfo } from "../../api/token/tokenMappings";
 import fetch from "cross-fetch";
 
 // Transaction creation functions

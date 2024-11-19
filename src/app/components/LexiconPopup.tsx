@@ -7,7 +7,7 @@ import WalletConnectButton from "./WalletProvider/WalletConnectButton";
 import {
   sendMessageLexicon,
   executeFunctionCall,
-} from "../backend/utils/communications";
+} from "../utils/communications";
 
 const ChatComponent = () => {
   const wallet = useWallet();
