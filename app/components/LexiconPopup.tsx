@@ -8,9 +8,9 @@ import {
   sendMessageLexicon,
   executeFunctionCall,
 } from "../utils/communications";
-import { tools as defaultTools } from "../configs/default/functionDefs";
-import { systemPrompt as defaultSystemPrompt } from "../configs/default/systemPrompt";
-import { functionHandlers as defaultFunctionHandlers } from "../configs/default/functions";
+import { tools as defaultTools } from "@/configs/default/functionDefs";
+import { systemPrompt as defaultSystemPrompt } from "@/configs/default/systemPrompt";
+import { functionHandlers as defaultFunctionHandlers } from "@/configs/default/functions";
 import { ChatConfig, ChatComponentProps } from "../types/types";
 
 const ChatComponent: React.FC<ChatComponentProps> = ({
@@ -35,11 +35,11 @@ const ChatComponent: React.FC<ChatComponentProps> = ({
 
       try {
         const [tools, systemPrompt, handlers] = await Promise.all([
-          import(`../backend/${configId}/functionDefs`).then((m) => m.tools),
-          import(`../backend/${configId}/systemPrompt`).then(
+          import(`../configs/${configId}/functionDefs`).then((m) => m.tools),
+          import(`../configs/${configId}/systemPrompt`).then(
             (m) => m.systemPrompt
           ),
-          import(`../backend/${configId}/functions`).then(
+          import(`../configs/${configId}/functions`).then(
             (m) => m.functionHandlers
           ),
         ]);
