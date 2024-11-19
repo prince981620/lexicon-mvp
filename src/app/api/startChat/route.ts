@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
     });
   }
 
-  const { userInput, messageHistory } = await req.json();
+  const { userInput, messageHistory, config } = await req.json();
 
   if (!userInput) {
     return new Response(JSON.stringify({ message: "Invalid input" }), {
@@ -27,7 +27,8 @@ export async function POST(req: NextRequest) {
 
   try {
     const response = await startChat(
-      messageHistory || [{ role: "user", content: userInput }]
+      messageHistory || [{ role: "user", content: userInput }],
+      config
     );
     return new Response(JSON.stringify({ response }), { status: 200 });
   } catch (error) {
