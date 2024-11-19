@@ -7,8 +7,8 @@ import {
   LAMPORTS_PER_SOL,
   VersionedTransaction,
 } from "@solana/web3.js";
-import { FunctionHandler } from "../types/types";
-import { getTokenInfo } from "./utils/tokenMappings";
+import { FunctionHandler } from "../../types/types";
+import { getTokenInfo } from "../utils/tokenMappings";
 import fetch from "cross-fetch";
 
 // Transaction creation functions

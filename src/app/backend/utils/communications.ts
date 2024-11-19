@@ -1,5 +1,5 @@
 import { ChatResponse, Message, FunctionCall } from "../../types/types";
-import { functionHandlers } from "../defaultFunctions";
+import { functionHandlers } from "../default-data/defaultFunctions";
 import { WalletContextState } from "@solana/wallet-adapter-react";
 
 // Message history management
