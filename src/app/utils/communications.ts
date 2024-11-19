@@ -1,6 +1,6 @@
 import { ChatResponse, Message, FunctionCall } from "../types/types";
-import { functionHandlers } from "../backend/default-data/functions";
 import { WalletContextState } from "@solana/wallet-adapter-react";
+import { ChatConfig } from "../types/types";
 
 // Message history management
 let messageHistory: Message[] = [];
@@ -16,9 +16,10 @@ export const getMessageHistory = () => {
 // Function execution
 export const executeFunctionCall = async (
   functionCall: FunctionCall,
-  wallet: WalletContextState
+  wallet: WalletContextState,
+  config: ChatConfig
 ): Promise<string | null> => {
-  const handler = functionHandlers[functionCall.name];
+  const handler = config.functionHandlers[functionCall.name];
 
   if (!handler) {
     console.error(`No handler found for function: ${functionCall.name}`);
@@ -35,7 +36,8 @@ export const executeFunctionCall = async (
 
 // Message sending and processing
 export const sendMessageLexicon = async (
-  userInput: string
+  userInput: string,
+  config: ChatConfig
 ): Promise<ChatResponse> => {
   messageHistory.push({ role: "user", content: userInput });
 
@@ -48,6 +50,7 @@ export const sendMessageLexicon = async (
       body: JSON.stringify({
         userInput,
         messageHistory,
+        config,
       }),
     });
 
