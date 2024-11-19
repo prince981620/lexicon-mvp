@@ -2,17 +2,18 @@
   const createWidget = () => {
     const iframe = document.createElement('iframe');
     
-    // Set iframe attributes with zero padding
+    // Set iframe attributes with margin from edges
     iframe.style.position = 'fixed';
-    iframe.style.bottom = '0';
-    iframe.style.right = '0';
-    iframe.style.width = '200px';
+    iframe.style.bottom = '16px';
+    iframe.style.right = '16px';
+    iframe.style.width = '180px';
     iframe.style.height = '48px';
     iframe.style.border = 'none';
     iframe.style.zIndex = '999999';
     iframe.style.background = 'transparent';
     iframe.style.overflow = 'hidden';
-    iframe.style.maxHeight = '100vh';
+    iframe.style.maxHeight = 'calc(100vh - 32px)';
+    iframe.style.pointerEvents = 'none';
     
     iframe.setAttribute('allowtransparency', 'true');
     
@@ -23,15 +24,16 @@
     
     document.body.appendChild(iframe);
     
-    // Handle iframe resize messages with smooth transitions
+    iframe.onload = () => {
+      iframe.style.pointerEvents = 'auto';
+    };
+    
     window.addEventListener('message', (event) => {
       if (event.origin !== 'http://localhost:3000') return;
       
       if (event.data.type === 'resize') {
         iframe.style.transition = 'width 0.3s, height 0.3s';
-        
-        // Ensure the chat stays within viewport
-        const maxHeight = window.innerHeight;
+        const maxHeight = window.innerHeight - 32;
         const height = Math.min(event.data.height, maxHeight);
         
         iframe.style.width = `${event.data.width}px`;

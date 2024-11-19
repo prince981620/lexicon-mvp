@@ -16,7 +16,7 @@ const LexiconButton: React.FC<LexiconButtonProps> = ({
 
   useEffect(() => {
     if (window.parent !== window) {
-      const size = isOpen ? { width: 380, height: 680 } : { width: 200, height: 48 };
+      const size = isOpen ? { width: 380, height: 680 } : { width: 180, height: 48 };
       window.parent.postMessage({
         type: 'resize',
         ...size
@@ -25,13 +25,13 @@ const LexiconButton: React.FC<LexiconButtonProps> = ({
   }, [isOpen]);
 
   return (
-    <>
+    <div className="inline-flex">
       {!isOpen ? (
         <button
           onClick={() => setIsOpen(true)}
           className={
             buttonClassName ||
-            "fixed bottom-0 right-0 group flex items-center gap-2 px-4 py-2.5 bg-black hover:bg-black/90 text-white rounded-tl-2xl overflow-hidden transition-all duration-300 hover:shadow-lg"
+            "flex items-center gap-2 px-4 py-2.5 bg-black hover:bg-black/90 text-white rounded-full overflow-hidden transition-all duration-300 hover:shadow-lg"
           }
         >
           <img
@@ -42,15 +42,13 @@ const LexiconButton: React.FC<LexiconButtonProps> = ({
           <span className="text-sm font-medium">Chat with Lexicon</span>
         </button>
       ) : (
-        <div className="fixed bottom-0 right-0 bg-black">
-          <LexiconPopup
-            isOpen={isOpen}
-            onClose={() => setIsOpen(false)}
-            configId={configId}
-          />
-        </div>
+        <LexiconPopup
+          isOpen={isOpen}
+          onClose={() => setIsOpen(false)}
+          configId={configId}
+        />
       )}
-    </>
+    </div>
   );
 };
 
