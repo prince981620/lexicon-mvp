@@ -42,7 +42,7 @@ const LexiconButton: React.FC<LexiconButtonProps> = ({
           <span className="text-sm font-medium">Chat with Lexicon</span>
         </button>
       ) : (
-        <div className="fixed bottom-0 right-0">
+        <div className="fixed bottom-0 right-0 bg-black">
           <LexiconPopup
             isOpen={isOpen}
             onClose={() => setIsOpen(false)}
