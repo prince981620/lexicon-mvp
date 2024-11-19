@@ -1,8 +1,8 @@
 import { OpenAI } from "openai";
-import { tools } from "../../backend/default-data/defaultFunctionDefs";
+import { tools } from "../../backend/default-data/functionDefs";
 import { ChatCompletionMessageParam } from "openai/resources/chat/completions";
 import { Message } from "../../types/types";
-import { systemPrompt } from "../../backend/default-data/defaultSystemPrompt";
+import { systemPrompt } from "../../backend/default-data/systemPrompt";
 
 const apiKey = process.env.OPENAI_API_KEY;
 const model = process.env.NEXT_PUBLIC_AI_MODEL as string;
