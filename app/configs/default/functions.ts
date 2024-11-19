@@ -11,6 +11,28 @@ import { FunctionHandler } from "../../types/types";
 import { getTokenInfo } from "../../api/token/tokenMappings";
 import fetch from "cross-fetch";
 
+// Add these interfaces at the top with other imports
+interface TokenInfo {
+  amount?: number;
+  price_info?: {
+    price_per_token?: number;
+  };
+}
+
+interface AssetItem {
+  interface: string;
+  id: string;
+  symbol?: string;
+  token?: TokenInfo;
+}
+
+interface PortfolioResult {
+  nativeBalance?: {
+    lamports: number;
+  };
+  items?: AssetItem[];
+}
+
 // Transaction creation functions
 const create_solana_transaction = async (
   recipient_wallet: string,
@@ -87,6 +109,48 @@ const create_jupiter_swap = async (
   const transaction = VersionedTransaction.deserialize(swapTransactionBuf);
 
   return { transaction, connection };
+};
+
+const getPortfolioBalance = async (
+  walletAddress: string,
+  includeNfts: boolean = true
+) => {
+  if (!process.env.NEXT_PUBLIC_HELIUS_API_KEY) {
+    throw new Error('Helius API key not found');
+  }
+
+  const url = process.env.NEXT_PUBLIC_HELIUS_API_KEY;
+
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      jsonrpc: '2.0',
+      id: 'portfolio-analysis',
+      method: 'getAssetsByOwner',
+      params: {
+        ownerAddress: walletAddress,
+        page: 1,
+        limit: 1000,
+        displayOptions: {
+          showFungible: true,
+          showNativeBalance: true,
+          // Remove showNfts as it's not a valid option
+          showCollectionMetadata: includeNfts,  // This is the closest equivalent
+          showUnverifiedCollections: includeNfts
+        },
+      },
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`API request failed: ${response.status}`);
+  }
+
+  const { result } = await response.json();
+  return result;
 };
 
 // Function handlers map
@@ -185,6 +249,67 @@ export const functionHandlers: Record<string, FunctionHandler> = {
         return `Swap failed: ${error.message}`;
       }
       return "Swap failed: Unknown error occurred";
+    }
+  },
+
+  get_portfolio_balance: async (args, wallet) => {
+    try {
+      const walletAddress = args.walletAddress || wallet.publicKey?.toString();
+      
+      if (!walletAddress) {
+        return "No wallet address provided or connected";
+      }
+
+      const portfolio = await getPortfolioBalance(walletAddress, args.includeNfts);
+      
+      // Format native SOL balance and value
+      const solBalance = (portfolio.nativeBalance?.lamports || 0) / LAMPORTS_PER_SOL;
+      const solPrice = portfolio.nativeBalance?.price_per_sol || 0;
+      const solValue = portfolio.nativeBalance?.total_price || 0;
+      
+      let response = `📊 Portfolio Analysis for ${walletAddress}\n\n`;
+      response += `💰 Native SOL Balance: ${solBalance.toFixed(4)} SOL`;
+      response += ` ($${solPrice.toFixed(2)} per SOL = $${solValue.toFixed(2)})\n\n`;
+      
+      let totalPortfolioValue = solValue;
+      
+      if (portfolio.items?.length > 0) {
+        response += "🪙 Token Holdings:\n";
+        portfolio.items
+          .filter((item: AssetItem) => item.interface === "FungibleToken")
+          .forEach((token: any) => {
+            const tokenBalance = token.token_info?.balance || 0;
+            const decimals = token.token_info?.decimals || 0;
+            const humanBalance = tokenBalance / Math.pow(10, decimals);
+            const symbol = token.token_info?.symbol || token.content?.metadata?.symbol || "Unknown";
+            const pricePerToken = token.token_info?.price_info?.price_per_token || 0;
+            const totalValue = token.token_info?.price_info?.total_price || 0;
+            
+            totalPortfolioValue += totalValue;
+            
+            response += `- ${humanBalance.toFixed(4)} ${symbol}`;
+            if (pricePerToken > 0) {
+              response += ` ($${pricePerToken.toFixed(6)} per token = $${totalValue.toFixed(2)})\n`;
+            } else {
+              response += ` (No price data available)\n`;
+            }
+          });
+          
+        if (args.includeNfts) {
+          const nfts = portfolio.items.filter((item: AssetItem) => item.interface === "V1_NFT");
+          response += `\n🖼️ NFTs: ${nfts.length} items\n`;
+        }
+      }
+      
+      response += `\n💎 Total Portfolio Value: $${totalPortfolioValue.toFixed(2)}\n`;
+
+      return response;
+    } catch (error: unknown) {
+      console.error("Portfolio analysis error:", error);
+      if (error instanceof Error) {
+        return `Failed to get portfolio: ${error.message}`;
+      }
+      return "Failed to get portfolio: Unknown error occurred";
     }
   },
 };
