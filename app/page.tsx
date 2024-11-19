@@ -29,7 +29,7 @@ export default function Home() {
       </div>
 
       <div className="flex-1 flex items-start justify-center px-4 pb-12">
-        <ChatComponent />
+        <ChatComponent configId="default" />
       </div>
     </main>
   );
