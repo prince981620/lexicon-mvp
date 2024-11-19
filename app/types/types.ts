@@ -1,5 +1,5 @@
 import { WalletContextState } from "@solana/wallet-adapter-react";
-import { tools as defaultTools } from "../backend/configs/default/functionDefs";
+import { tools as defaultTools } from "../configs/default/functionDefs";
 
 export interface FunctionCall {
   name: string;
@@ -28,7 +28,8 @@ export interface FrontendMessage {
 
 export type FunctionHandler = (
   args: Record<string, any>,
-  wallet: WalletContextState
+  wallet: WalletContextState,
+  rpcUrl?: string
 ) => Promise<string | null>;
 
 export interface ChatConfig {

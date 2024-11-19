@@ -7,18 +7,22 @@ import {
   LAMPORTS_PER_SOL,
   VersionedTransaction,
 } from "@solana/web3.js";
-import { FunctionHandler } from "../../../types/types";
-import { getTokenInfo } from "../../../api/token/tokenMappings";
+import { FunctionHandler } from "../../types/types";
+import { getTokenInfo } from "../../api/token/tokenMappings";
 import fetch from "cross-fetch";
 
 // Transaction creation functions
 const create_solana_transaction = async (
   recipient_wallet: string,
   amount_sol: number,
-  fromPubkey: PublicKey
+  fromPubkey: PublicKey,
+  rpcUrl?: string
 ) => {
   try {
-    const connection = new Connection(clusterApiUrl("devnet"), "confirmed");
+    const connection = new Connection(
+      rpcUrl || clusterApiUrl("devnet"),
+      "confirmed"
+    );
     const toPubkey = new PublicKey(recipient_wallet);
 
     const transaction = new Transaction().add(
@@ -49,11 +53,12 @@ const create_jupiter_swap = async (
   amount: number,
   slippageBps: number,
   userPublicKey: string,
-  connection?: Connection
+  rpcUrl?: string
 ) => {
-  if (!connection) {
-    connection = new Connection(clusterApiUrl("mainnet-beta"), "confirmed");
-  }
+  const connection = new Connection(
+    rpcUrl || clusterApiUrl("mainnet-beta"),
+    "confirmed"
+  );
 
   const quoteResponse = await (
     await fetch(`https://quote-api.jup.ag/v6/quote?inputMint=${inputMint}\
@@ -86,7 +91,7 @@ const create_jupiter_swap = async (
 
 // Function handlers map
 export const functionHandlers: Record<string, FunctionHandler> = {
-  send_solana_transaction: async (args, wallet) => {
+  send_solana_transaction: async (args, wallet, rpcUrl) => {
     if (!wallet.connected || !wallet.signTransaction || !wallet.publicKey) {
       return "Please connect your wallet first";
     }
@@ -95,7 +100,8 @@ export const functionHandlers: Record<string, FunctionHandler> = {
       const { transaction, connection } = await create_solana_transaction(
         args.recipient_wallet,
         args.amount_sol,
-        wallet.publicKey
+        wallet.publicKey,
+        rpcUrl
       );
 
       const signedTx = await wallet.signTransaction(transaction);
@@ -120,7 +126,7 @@ export const functionHandlers: Record<string, FunctionHandler> = {
     }
   },
 
-  swap_tokens: async (args, wallet) => {
+  swap_tokens: async (args, wallet, rpcUrl) => {
     if (!wallet.connected || !wallet.signTransaction || !wallet.publicKey) {
       return "Please connect your wallet first";
     }
@@ -143,19 +149,19 @@ export const functionHandlers: Record<string, FunctionHandler> = {
         args.amount * Math.pow(10, inputDecimals)
       );
 
-      const connection = new Connection(
-        clusterApiUrl("mainnet-beta"),
-        "confirmed"
-      );
       const { transaction } = await create_jupiter_swap(
         inputTokenInfo.address,
         outputTokenInfo.address,
         amountWithDecimals,
         args.slippageBps,
         wallet.publicKey.toString(),
-        connection
+        rpcUrl
       );
 
+      const connection = new Connection(
+        rpcUrl || clusterApiUrl("mainnet-beta"),
+        "confirmed"
+      );
       const signedTx = await wallet.signTransaction(transaction);
       const signature = await connection.sendRawTransaction(
         signedTx.serialize(),
