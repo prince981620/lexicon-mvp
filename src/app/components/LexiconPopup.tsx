@@ -8,13 +8,14 @@ import {
   sendMessageLexicon,
   executeFunctionCall,
 } from "../utils/communications";
-import { tools as defaultTools } from "../backend/default-data/functionDefs";
-import { systemPrompt as defaultSystemPrompt } from "../backend/default-data/systemPrompt";
-import { functionHandlers as defaultFunctionHandlers } from "../backend/default-data/functions";
+import { tools as defaultTools } from "../backend/configs/default/functionDefs";
+import { systemPrompt as defaultSystemPrompt } from "../backend/configs/default/systemPrompt";
+import { functionHandlers as defaultFunctionHandlers } from "../backend/configs/default/functions";
 import { ChatConfig, ChatComponentProps } from "../types/types";
 
-
-const ChatComponent: React.FC<ChatComponentProps> = ({ configId = 'default' }) => {
+const ChatComponent: React.FC<ChatComponentProps> = ({
+  configId = "default",
+}) => {
   const wallet = useWallet();
   const [isChatOpen, setIsChatOpen] = useState<boolean>(false);
   const [chatHistory, setChatHistory] = useState<FrontendMessage[]>([]);
@@ -29,13 +30,17 @@ const ChatComponent: React.FC<ChatComponentProps> = ({ configId = 'default' }) =
 
   useEffect(() => {
     const loadConfig = async () => {
-      if (configId === 'default') return;
-      
+      if (configId === "default") return;
+
       try {
         const [tools, systemPrompt, handlers] = await Promise.all([
-          import(`../backend/${configId}/functionDefs`).then(m => m.tools),
-          import(`../backend/${configId}/systemPrompt`).then(m => m.systemPrompt),
-          import(`../backend/${configId}/functions`).then(m => m.functionHandlers),
+          import(`../backend/${configId}/functionDefs`).then((m) => m.tools),
+          import(`../backend/${configId}/systemPrompt`).then(
+            (m) => m.systemPrompt
+          ),
+          import(`../backend/${configId}/functions`).then(
+            (m) => m.functionHandlers
+          ),
         ]);
 
         setConfig({
@@ -44,7 +49,10 @@ const ChatComponent: React.FC<ChatComponentProps> = ({ configId = 'default' }) =
           functionHandlers: handlers,
         });
       } catch (error) {
-        console.error(`Failed to load config for ${configId}, using default`, error);
+        console.error(
+          `Failed to load config for ${configId}, using default`,
+          error
+        );
       }
     };
 
@@ -67,7 +75,10 @@ const ChatComponent: React.FC<ChatComponentProps> = ({ configId = 'default' }) =
     setIsGenerating(true);
 
     try {
-      const response: ChatResponse = await sendMessageLexicon(userInput, config);
+      const response: ChatResponse = await sendMessageLexicon(
+        userInput,
+        config
+      );
 
       if (response.content) {
         const gptMessage = { role: "assistant", content: response.content };
