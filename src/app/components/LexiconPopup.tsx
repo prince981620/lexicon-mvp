@@ -1,21 +1,63 @@
 import { useState, useRef, useEffect } from "react";
 import { useWallet } from "@solana/wallet-adapter-react";
 import LoadingSpinner from "./LoadingSpinner";
-import { ChatResponse, FrontendMessage } from "../types/types";
+import { ChatResponse, FrontendMessage, FunctionHandler } from "../types/types";
 import ReactMarkdown from "react-markdown";
 import WalletConnectButton from "./WalletProvider/WalletConnectButton";
 import {
   sendMessageLexicon,
   executeFunctionCall,
 } from "../utils/communications";
+import { tools as defaultTools } from "../backend/configs/default/functionDefs";
+import { systemPrompt as defaultSystemPrompt } from "../backend/configs/default/systemPrompt";
+import { functionHandlers as defaultFunctionHandlers } from "../backend/configs/default/functions";
+import { ChatConfig, ChatComponentProps } from "../types/types";
 
-const ChatComponent = () => {
+const ChatComponent: React.FC<ChatComponentProps> = ({
+  configId = "default",
+}) => {
   const wallet = useWallet();
   const [isChatOpen, setIsChatOpen] = useState<boolean>(false);
   const [chatHistory, setChatHistory] = useState<FrontendMessage[]>([]);
   const [userInput, setUserInput] = useState<string>("");
   const [isGenerating, setIsGenerating] = useState(false);
   const chatContainerRef = useRef<HTMLDivElement>(null);
+  const [config, setConfig] = useState<ChatConfig>({
+    tools: defaultTools,
+    systemPrompt: defaultSystemPrompt,
+    functionHandlers: defaultFunctionHandlers,
+  });
+
+  useEffect(() => {
+    const loadConfig = async () => {
+      if (configId === "default") return;
+
+      try {
+        const [tools, systemPrompt, handlers] = await Promise.all([
+          import(`../backend/${configId}/functionDefs`).then((m) => m.tools),
+          import(`../backend/${configId}/systemPrompt`).then(
+            (m) => m.systemPrompt
+          ),
+          import(`../backend/${configId}/functions`).then(
+            (m) => m.functionHandlers
+          ),
+        ]);
+
+        setConfig({
+          tools,
+          systemPrompt,
+          functionHandlers: handlers,
+        });
+      } catch (error) {
+        console.error(
+          `Failed to load config for ${configId}, using default`,
+          error
+        );
+      }
+    };
+
+    loadConfig();
+  }, [configId]);
 
   useEffect(() => {
     if (chatContainerRef.current) {
@@ -33,7 +75,10 @@ const ChatComponent = () => {
     setIsGenerating(true);
 
     try {
-      const response: ChatResponse = await sendMessageLexicon(userInput);
+      const response: ChatResponse = await sendMessageLexicon(
+        userInput,
+        config
+      );
 
       if (response.content) {
         const gptMessage = { role: "assistant", content: response.content };
@@ -43,7 +88,8 @@ const ChatComponent = () => {
       if (response.functionCall) {
         const functionResult = await executeFunctionCall(
           response.functionCall,
-          wallet
+          wallet,
+          config
         );
         const functionMessage = {
           role: "assistant",
