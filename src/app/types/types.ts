@@ -1,4 +1,5 @@
 import { WalletContextState } from "@solana/wallet-adapter-react";
+import { tools as defaultTools } from "../backend/default-data/functionDefs";
 
 export interface FunctionCall {
   name: string;
@@ -29,3 +30,13 @@ export type FunctionHandler = (
   args: Record<string, any>,
   wallet: WalletContextState
 ) => Promise<string | null>;
+
+export interface ChatConfig {
+  tools: typeof defaultTools;
+  systemPrompt: string;
+  functionHandlers: Record<string, FunctionHandler>;
+}
+
+export interface ChatComponentProps {
+  configId?: string; // e.g., 'netflix', 'default', etc.
+}
