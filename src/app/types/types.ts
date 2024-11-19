@@ -28,7 +28,8 @@ export interface FrontendMessage {
 
 export type FunctionHandler = (
   args: Record<string, any>,
-  wallet: WalletContextState
+  wallet: WalletContextState,
+  rpcUrl?: string
 ) => Promise<string | null>;
 
 export interface ChatConfig {

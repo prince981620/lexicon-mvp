@@ -17,7 +17,8 @@ export const getMessageHistory = () => {
 export const executeFunctionCall = async (
   functionCall: FunctionCall,
   wallet: WalletContextState,
-  config: ChatConfig
+  config: ChatConfig,
+  rpcUrl?: string
 ): Promise<string | null> => {
   const handler = config.functionHandlers[functionCall.name];
 
@@ -27,7 +28,7 @@ export const executeFunctionCall = async (
   }
 
   try {
-    return await handler(functionCall.arguments, wallet);
+    return await handler(functionCall.arguments, wallet, rpcUrl);
   } catch (error) {
     console.error(`Error executing function ${functionCall.name}:`, error);
     return `Error executing function ${functionCall.name}`;

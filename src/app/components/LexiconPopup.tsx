@@ -27,6 +27,7 @@ const ChatComponent: React.FC<ChatComponentProps> = ({
     systemPrompt: defaultSystemPrompt,
     functionHandlers: defaultFunctionHandlers,
   });
+  const [rpcUrl, setRpcUrl] = useState<string>();
 
   useEffect(() => {
     const loadConfig = async () => {
@@ -89,7 +90,8 @@ const ChatComponent: React.FC<ChatComponentProps> = ({
         const functionResult = await executeFunctionCall(
           response.functionCall,
           wallet,
-          config
+          config,
+          rpcUrl
         );
         const functionMessage = {
           role: "assistant",
