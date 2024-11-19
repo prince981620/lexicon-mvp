@@ -1,5 +1,6 @@
 "use client";
 
+import LexiconButton from "./components/LexiconButton";
 import ChatComponent from "./components/LexiconPopup";
 
 export default function Home() {
@@ -29,7 +30,7 @@ export default function Home() {
       </div>
 
       <div className="flex-1 flex items-start justify-center px-4 pb-12">
-        <ChatComponent configId="default" />
+        <LexiconButton />
       </div>
     </main>
   );

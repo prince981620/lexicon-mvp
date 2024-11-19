@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lexicon Chat Widget Test</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: system-ui, -apple-system, sans-serif;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        p {
+            color: #666;
+            line-height: 1.6;
+        }
+        .content {
+            height: 2000px; /* Makes the page scrollable to test fixed positioning */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Lexicon Chat Widget Test Page</h1>
+        <p>This is a test page for the Lexicon Chat Widget integration. The chat widget should appear in the bottom-right corner of the page.</p>
+        <p>Try scrolling down to see how the widget behaves with page scrolling.</p>
+        <div class="content">
+            <h2>Sample Content</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <!-- Add more content as needed -->
+        </div>
+    </div>
+
+    <!-- Lexicon Chat Widget Embed Script -->
+    <script src="/lexicon-embed.js" data-config-id="default"></script>
+</body>
+</html> 
