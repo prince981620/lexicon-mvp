@@ -1,13 +1,12 @@
 import { OpenAI } from "openai";
-import { tools } from "../../backend/default-data/functionDefs";
 import { ChatCompletionMessageParam } from "openai/resources/chat/completions";
 import { Message } from "../../types/types";
-import { systemPrompt } from "../../backend/default-data/systemPrompt";
+import { ChatConfig } from "../../types/types";
 
 const apiKey = process.env.OPENAI_API_KEY;
 const model = process.env.NEXT_PUBLIC_AI_MODEL as string;
 
-export const startChat = async (messages: Message[]) => {
+export const startChat = async (messages: Message[], config: ChatConfig) => {
   const openai = new OpenAI({
     apiKey,
   });
@@ -18,12 +17,12 @@ export const startChat = async (messages: Message[]) => {
       messages: [
         {
           role: "system",
-          content: systemPrompt,
+          content: config.systemPrompt,
         },
         ...(messages as ChatCompletionMessageParam[]),
       ],
       temperature: 0.3,
-      tools: tools.map((tool) => ({
+      tools: config.tools.map((tool) => ({
         type: "function" as const,
         function: {
           name: tool.name,
