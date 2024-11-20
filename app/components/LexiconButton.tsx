@@ -4,7 +4,6 @@ import { useState, useEffect, useCallback } from 'react';
 import dynamic from 'next/dynamic';
 import { ChatComponentProps } from "../types/types";
 
-// Dynamically import LexiconPopup
 const LexiconPopup = dynamic(() => import("./LexiconPopup"), { ssr: false });
 
 interface LexiconButtonProps extends ChatComponentProps {
@@ -34,23 +33,45 @@ const LexiconButton: React.FC<LexiconButtonProps> = ({
 
   useEffect(() => {
     handleResize();
+    
+    // Handle escape key to close popup
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isOpen) {
+        setIsOpen(false);
+      }
+    };
+    
+    window.addEventListener('keydown', handleEscape);
+    return () => window.removeEventListener('keydown', handleEscape);
   }, [isOpen, handleResize]);
 
-  if (!mounted) {
-    return null;
-  }
+  if (!mounted) return null;
 
   return (
     <div className="inline-flex bg-transparent">
       {!isOpen ? (
         <button
           onClick={() => setIsOpen(true)}
-          className="flex items-center justify-center gap-1.5 w-[120px] h-[32px] border bg-black border-white/30 text-white"
+          className={`
+            flex items-center justify-center gap-1.5 
+            w-[120px] h-[32px] 
+            bg-black hover:bg-gray-900
+            border border-white/30 hover:border-white/50
+            text-white
+            rounded-lg
+            transition-all duration-200
+            shadow-lg hover:shadow-xl
+            focus:outline-none focus:ring-2 focus:ring-white/20
+            transform hover:-translate-y-0.5
+            ${buttonClassName}
+          `}
+          aria-label="Open chat with Lexicon AI"
         >
           <img
             src="/lexicon/lexicon-logo.png"
-            alt="Lexicon AI"
+            alt=""
             className="h-4 w-4 rounded-full"
+            aria-hidden="true"
           />
           <span className="text-xs font-medium">Chat with AI</span>
         </button>

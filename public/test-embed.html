@@ -9,7 +9,7 @@
             margin: 0;
             padding: 20px;
             font-family: system-ui, -apple-system, sans-serif;
-            background: #ffffff;
+            background: #00000000;
             color: #000000;
         }
         .container {
@@ -83,6 +83,21 @@
             font-size: 14px;
             margin-top: 12px;
         }
+        /* Add styles for iframe container */
+        #lexicon-widget-container {
+            position: fixed;
+            bottom: 16px;
+            right: 16px;
+            z-index: 999999;
+        }
+        
+        /* Add responsive breakpoint */
+        @media (max-width: 480px) {
+            #lexicon-widget-container {
+                bottom: 8px;
+                right: 8px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -118,7 +133,15 @@
         <button class="swap-button">Please choose tokens and slippage</button>
     </div>
 
+    <!-- Add container for widget -->
+    <div id="lexicon-widget-container" aria-live="polite"></div>
+    
     <!-- Lexicon Chat Widget Embed Script -->
-    <script src="/lexicon-embed.js" data-config-id="default"></script>
+    <script 
+        src="/lexicon-embed.js" 
+        data-config-id="default"
+        async
+        defer
+    ></script>
 </body>
 </html> 
