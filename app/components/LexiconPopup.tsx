@@ -1,4 +1,4 @@
-mport { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useWallet } from "@solana/wallet-adapter-react";
 import LoadingSpinner from "./LoadingSpinner";
 import { ChatResponse, FrontendMessage, FunctionHandler } from "../types/types";
