@@ -62,7 +62,6 @@ const LexiconButton: React.FC<LexiconButtonProps> = ({
             transition-all duration-200
             shadow-lg hover:shadow-xl
             focus:outline-none focus:ring-2 focus:ring-white/20
-            transform hover:-translate-y-0.5
             ${buttonClassName}
           `}
           aria-label="Open chat with Lexicon AI"
