@@ -58,7 +58,6 @@ export const tools = [
     strict: true,
     parameters: {
       type: "object",
-      required: ["walletAddress"],
       properties: {
         walletAddress: {
           type: "string",
