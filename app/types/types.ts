@@ -41,3 +41,24 @@ export interface ChatConfig {
 export interface ChatComponentProps {
   configId?: string; // e.g., 'netflix', 'default', etc.
 }
+
+export interface TokenInfo {
+  amount?: number;
+  price_info?: {
+    price_per_token?: number;
+  };
+}
+
+export interface AssetItem {
+  interface: string;
+  id: string;
+  symbol?: string;
+  token?: TokenInfo;
+}
+
+export interface PortfolioResult {
+  nativeBalance?: {
+    lamports: number;
+  };
+  items?: AssetItem[];
+}

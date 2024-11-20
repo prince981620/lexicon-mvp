@@ -62,7 +62,7 @@ export const tools = [
       properties: {
         walletAddress: {
           type: "string",
-          description: "The Solana wallet address to check the portfolio for",
+          description: "The Solana wallet address to check the portfolio for if user doesn't provide a wallet address, it will use the connected wallet",
         },
         includeNfts: {
           type: "boolean",

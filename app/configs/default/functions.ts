@@ -10,28 +10,8 @@ import {
 import { FunctionHandler } from "../../types/types";
 import { getTokenInfo } from "../../api/token/tokenMappings";
 import fetch from "cross-fetch";
+import { AssetItem, PortfolioResult, TokenInfo  } from "../../types/types";
 
-// Add these interfaces at the top with other imports
-interface TokenInfo {
-  amount?: number;
-  price_info?: {
-    price_per_token?: number;
-  };
-}
-
-interface AssetItem {
-  interface: string;
-  id: string;
-  symbol?: string;
-  token?: TokenInfo;
-}
-
-interface PortfolioResult {
-  nativeBalance?: {
-    lamports: number;
-  };
-  items?: AssetItem[];
-}
 
 // Transaction creation functions
 const create_solana_transaction = async (
