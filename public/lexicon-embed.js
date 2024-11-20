@@ -6,14 +6,17 @@
     iframe.style.position = 'fixed';
     iframe.style.bottom = '16px';
     iframe.style.right = '16px';
-    iframe.style.width = '180px';
-    iframe.style.height = '48px';
+    iframe.style.width = '120px';
+    iframe.style.height = '32px';
     iframe.style.border = 'none';
     iframe.style.zIndex = '999999';
     iframe.style.background = 'transparent';
     iframe.style.overflow = 'hidden';
     iframe.style.maxHeight = 'calc(100vh - 32px)';
     iframe.style.pointerEvents = 'none';
+    iframe.style.backgroundColor = 'transparent';
+    iframe.style.margin = '0';
+    iframe.style.padding = '0';
     
     iframe.setAttribute('allowtransparency', 'true');
     
@@ -26,6 +29,17 @@
     
     iframe.onload = () => {
       iframe.style.pointerEvents = 'auto';
+      try {
+        const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
+        if (iframeDoc) {
+          iframeDoc.body.style.background = 'transparent';
+          iframeDoc.body.style.margin = '0';
+          iframeDoc.body.style.padding = '0';
+          iframeDoc.documentElement.style.background = 'transparent';
+        }
+      } catch (e) {
+        console.warn('Could not access iframe document');
+      }
     };
     
     window.addEventListener('message', (event) => {

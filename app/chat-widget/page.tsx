@@ -1,10 +1,15 @@
 "use client";
 
 import LexiconButton from '../components/LexiconButton';
+import { useSearchParams } from 'next/navigation';
 
 export default function ChatWidget() {
-  const params = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : new URLSearchParams();
-  const configId = params.get('configId') || 'default';
+  const searchParams = useSearchParams();
+  const configId = searchParams?.get('configId') || 'default';
   
-  return <LexiconButton configId={configId} />;
+  return (
+    <div className="fixed bottom-0 right-0 w-fit h-fit bg-transparent">
+      <LexiconButton configId={configId} />
+    </div>
+  );
 }

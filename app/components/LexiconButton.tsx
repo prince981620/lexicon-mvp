@@ -16,7 +16,7 @@ const LexiconButton: React.FC<LexiconButtonProps> = ({
 
   useEffect(() => {
     if (window.parent !== window) {
-      const size = isOpen ? { width: 380, height: 680 } : { width: 180, height: 48 };
+      const size = isOpen ? { width: 380, height: 680 } : { width: 120, height: 32 };
       window.parent.postMessage({
         type: 'resize',
         ...size
@@ -29,17 +29,14 @@ const LexiconButton: React.FC<LexiconButtonProps> = ({
       {!isOpen ? (
         <button
           onClick={() => setIsOpen(true)}
-          className={
-            buttonClassName ||
-            "flex items-center gap-2 px-4 py-2.5 bg-black hover:bg-black/90 text-white rounded-full overflow-hidden transition-all duration-300 hover:shadow-lg"
-          }
+          className="flex items-center justify-center gap-1.5 w-[120px] h-[32px] bg-transparent text-white rounded-full overflow-hidden"
         >
           <img
             src="/lexicon/lexicon-logo.png"
             alt="Lexicon AI"
-            className="h-5 w-5 rounded-full"
+            className="h-4 w-4 rounded-full"
           />
-          <span className="text-sm font-medium">Chat with Lexicon</span>
+          <span className="text-xs font-medium">Chat with AI</span>
         </button>
       ) : (
         <LexiconPopup

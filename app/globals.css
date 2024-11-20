@@ -2,6 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+html, body {
+  background: transparent !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  width: fit-content !important;
+  height: fit-content !important;
+  overflow: hidden !important;
+}
+
+#__next, main {
+  background: transparent !important;
+  width: fit-content !important;
+  height: fit-content !important;
+  overflow: hidden !important;
+}
+
 :root {
   --background: #f1f1f1;
   --foreground: #000000;
@@ -11,6 +27,7 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: system-ui, -apple-system, sans-serif;
+  background: transparent !important;
 }
 
 /* Custom scrollbar for chat */
