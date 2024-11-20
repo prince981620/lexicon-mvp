@@ -2,21 +2,25 @@
   const createWidget = () => {
     const iframe = document.createElement('iframe');
     
-    // Set iframe attributes with margin from edges
-    iframe.style.position = 'fixed';
-    iframe.style.bottom = '16px';
-    iframe.style.right = '16px';
-    iframe.style.width = '120px';
-    iframe.style.height = '32px';
-    iframe.style.border = 'none';
-    iframe.style.zIndex = '999999';
-    iframe.style.background = 'none';
-    iframe.style.backgroundColor = 'transparent';
-    iframe.style.overflow = 'hidden';
-    iframe.style.maxHeight = 'calc(100vh - 32px)';
-    iframe.style.pointerEvents = 'none';
-    iframe.style.margin = '0';
-    iframe.style.padding = '0';
+    // Set iframe attributes
+    const styles = {
+      position: 'fixed',
+      bottom: '16px',
+      right: '16px',
+      width: '120px',
+      height: '32px',
+      border: 'none',
+      zIndex: '999999',
+      background: 'transparent',
+      overflow: 'hidden',
+      maxHeight: 'calc(100vh - 32px)',
+      pointerEvents: 'none',
+      margin: '0',
+      padding: '0'
+    };
+    
+    // Apply styles
+    Object.assign(iframe.style, styles);
     
     iframe.setAttribute('allowtransparency', 'true');
     
@@ -32,12 +36,14 @@
       try {
         const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
         if (iframeDoc) {
-          iframeDoc.documentElement.style.background = 'none';
-          iframeDoc.documentElement.style.backgroundColor = 'transparent';
-          iframeDoc.body.style.background = 'none';
-          iframeDoc.body.style.backgroundColor = 'transparent';
-          iframeDoc.body.style.margin = '0';
-          iframeDoc.body.style.padding = '0';
+          const rootStyles = {
+            background: 'transparent',
+            margin: '0',
+            padding: '0'
+          };
+          
+          Object.assign(iframeDoc.documentElement.style, rootStyles);
+          Object.assign(iframeDoc.body.style, rootStyles);
         }
       } catch (e) {
         console.warn('Could not access iframe document');
