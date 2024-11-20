@@ -10,11 +10,11 @@
     iframe.style.height = '32px';
     iframe.style.border = 'none';
     iframe.style.zIndex = '999999';
-    iframe.style.background = 'transparent';
+    iframe.style.background = 'none';
+    iframe.style.backgroundColor = 'transparent';
     iframe.style.overflow = 'hidden';
     iframe.style.maxHeight = 'calc(100vh - 32px)';
     iframe.style.pointerEvents = 'none';
-    iframe.style.backgroundColor = 'transparent';
     iframe.style.margin = '0';
     iframe.style.padding = '0';
     
@@ -32,10 +32,12 @@
       try {
         const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
         if (iframeDoc) {
-          iframeDoc.body.style.background = 'transparent';
+          iframeDoc.documentElement.style.background = 'none';
+          iframeDoc.documentElement.style.backgroundColor = 'transparent';
+          iframeDoc.body.style.background = 'none';
+          iframeDoc.body.style.backgroundColor = 'transparent';
           iframeDoc.body.style.margin = '0';
           iframeDoc.body.style.padding = '0';
-          iframeDoc.documentElement.style.background = 'transparent';
         }
       } catch (e) {
         console.warn('Could not access iframe document');
