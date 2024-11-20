@@ -52,4 +52,25 @@ export const tools = [
       additionalProperties: false,
     },
   },
+  {
+    name: "get_portfolio_balance",
+    description: "Gets the portfolio balance and assets for a wallet address.",
+    strict: true,
+    parameters: {
+      type: "object",
+      required: ["walletAddress"],
+      properties: {
+        walletAddress: {
+          type: "string",
+          description: "The Solana wallet address to check the portfolio for",
+        },
+        includeNfts: {
+          type: "boolean",
+          description: "Whether to include NFTs in the portfolio analysis",
+          default: true
+        }
+      },
+      additionalProperties: false,
+    },
+  },
 ];
