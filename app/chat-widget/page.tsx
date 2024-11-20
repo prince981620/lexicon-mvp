@@ -8,16 +8,6 @@ export default function ChatWidget() {
   const configId = searchParams?.get('configId') || 'default';
   
   return (
-    <div className="chat-widget-container" style={{
-      position: 'fixed',
-      bottom: 0,
-      right: 0,
-      width: 'fit-content',
-      height: 'fit-content',
-      background: 'none',
-      backgroundColor: 'transparent'
-    }}>
       <LexiconButton configId={configId} />
-    </div>
   );
 }

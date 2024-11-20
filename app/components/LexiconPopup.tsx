@@ -126,7 +126,7 @@ const LexiconPopup: React.FC<
   if (!isOpen) return null;
 
   return isOpen ? (
-    <div className="w-[380px] h-[680px] flex flex-col bg-gradient-to-b from-black to-[#0a0a0a] rounded-2xl overflow-hidden border border-gray-800/50 shadow-2xl">
+    <div className="w-[380px] h-[680px] flex flex-col bg-gradient-to-b from-black to-[#0a0a0a] overflow-hidden border border-gray-800/50 shadow-2xl">
       {/* Header */}
       <div className="flex-none flex items-center justify-between px-4 py-3 bg-black/90 border-b border-gray-800/50">
         <div className="flex items-center gap-2">
