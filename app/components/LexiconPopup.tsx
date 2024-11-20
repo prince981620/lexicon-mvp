@@ -208,16 +208,20 @@ const LexiconPopup: React.FC<
               />
             )}
             <div
-              className={`relative max-w-[85%] shadow-lg ${
+              className={`relative max-w-[85%] shadow-lg overflow-hidden break-words ${
                 message.role === "user"
                   ? "bg-gradient-to-r from-white/90 to-white/80 text-black rounded-2xl rounded-br-none"
                   : "bg-gradient-to-br from-[#1e1e1e] to-[#1a1a1a] text-white/90 rounded-2xl rounded-tl-none"
               } px-5 py-4 hover:shadow-xl transition-shadow duration-200`}
             >
               <ReactMarkdown
-                className={`prose prose-sm max-w-none ${
+                className={`prose prose-sm max-w-none break-words ${
                   message.role === "user" ? "prose-black" : "prose-invert"
                 }`}
+                components={{
+                  p: ({children}) => <p className="whitespace-pre-wrap">{children}</p>,
+                  pre: ({children}) => <pre className="overflow-x-auto">{children}</pre>
+                }}
               >
                 {message.content}
               </ReactMarkdown>
