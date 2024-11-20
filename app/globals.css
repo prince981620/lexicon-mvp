@@ -2,26 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
+html, 
+body, 
+#__next, 
+main,
+.chat-widget-container {
   background: transparent !important;
-}
-
-html, body {
-  background: none !important;
-  background-color: transparent !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  width: fit-content !important;
-  height: fit-content !important;
-  overflow: hidden !important;
-}
-
-#__next, main {
-  background: none !important;
-  background-color: transparent !important;
-  width: fit-content !important;
-  height: fit-content !important;
-  overflow: hidden !important;
 }
 
 :root {

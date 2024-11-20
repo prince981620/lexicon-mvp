@@ -8,7 +8,7 @@ export default function ChatWidget() {
   const configId = searchParams?.get('configId') || 'default';
   
   return (
-    <div style={{
+    <div className="chat-widget-container" style={{
       position: 'fixed',
       bottom: 0,
       right: 0,

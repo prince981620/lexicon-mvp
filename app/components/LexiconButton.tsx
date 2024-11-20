@@ -29,7 +29,7 @@ const LexiconButton: React.FC<LexiconButtonProps> = ({
       {!isOpen ? (
         <button
           onClick={() => setIsOpen(true)}
-          className="flex items-center justify-center gap-1.5 w-[120px] h-[32px] bg-transparent text-white rounded-full overflow-hidden"
+          className="flex items-center justify-center gap-1.5 w-[120px] h-[32px] bg-transparent text-white rounded-full overflow-hidden border border-white/30"
         >
           <img
             src="/lexicon/lexicon-logo.png"
