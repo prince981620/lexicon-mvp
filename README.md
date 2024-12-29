@@ -1,8 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Lexicon AI Agent Framework
+
+An open-source AI agent framework for building intelligent assistants into Solana dApps. Powered by Next.js and OpenAI.
+
+## Overview
+
+Lexicon allows you to easily integrate an AI assistant into your Solana dApp that can:
+
+- Execute on-chain transactions
+- Swap tokens using Jupiter
+- Check wallet balances and portfolios
+- Provide custom functionality through configurable functions
 
 ## Getting Started
 
-First, run the development server:
+1. Set up environment variables by creating a `.env` file in the root directory:
+
+```bash
+# Required: OpenAI API key for the AI functionality
+OPENAI_API_KEY=your_openai_api_key
+
+# Required: OpenAI model to use (e.g., gpt-4, gpt-3.5-turbo)
+NEXT_PUBLIC_AI_MODEL=gpt-4o
+
+# Required: MongoDB connection for token mappings (if you want to use token mappings, and save addresses = tickers)
+MONGODB_URI=your_mongodb_uri
+MONGODB_DB=your_database_name
+
+# Required: Your app's URL
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+
+# Optional: Helius RPC endpoint for better Solana network performance
+NEXT_PUBLIC_HELIUS_API_KEY=your_helius_api_key
+```
+
+2. Install the dependencies:
+
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+```
+
+3. Run the development server:
 
 ```bash
 npm run dev
@@ -10,27 +51,85 @@ npm run dev
 yarn dev
 # or
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open [http://localhost:3000](http://localhost:3000) to see the demo app.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Integration Guide
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 1. Configure Custom Functions
+
+Add your custom functions in the `app/configs` directory:
+
+```typescript
+// app/configs/your-config/functionDefs.ts
+export const tools = [
+  {
+    name: "your_function_name",
+    description: "Description of what your function does",
+    parameters: {
+      // OpenAI function calling parameters
+    },
+  },
+];
+
+// app/configs/your-config/functions.ts
+export const functionHandlers = {
+  your_function_name: async (args, wallet) => {
+    // Function implementation
+  },
+};
+
+// app/configs/your-config/systemPrompt.ts
+export const systemPrompt = `Your AI assistant's personality and instructions`;
+```
+
+### 2. Embed the Component
+
+Add the Lexicon chat widget to your React/Next.js app:
+
+```tsx
+import LexiconButton from "./components/LexiconButton";
+
+export default function YourApp() {
+  return (
+    <div>
+      <LexiconButton configId="your-config" />
+    </div>
+  );
+}
+```
+
+### 3. Customize the Look
+
+The component is built with Tailwind CSS and is fully customizable. Override styles through:
+
+- Custom className props
+- Tailwind CSS classes
+- CSS modules
+- Styled-components
+
+## Features
+
+- 🤖 AI-powered chat interface
+- 💱 Built-in Solana transaction capabilities
+- 🔄 Jupiter DEX integration
+- 👛 Wallet connection handling
+- ⚙️ Configurable function framework
+- 🎨 Customizable UI/UX
+- 📱 Responsive design
+- ⚡️ Real-time updates
 
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+- [Project Documentation](docs/README.md)
+- [Configuration Guide](docs/configuration.md)
+- [API Reference](docs/api-reference.md)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Contributing
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Contributions are welcome! Please read our [Contributing Guide](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
 
-## Deploy on Vercel
+## License
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
