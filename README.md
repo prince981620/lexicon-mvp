@@ -22,7 +22,7 @@ OPENAI_API_KEY=your_openai_api_key
 # Required: OpenAI model to use (e.g., gpt-4, gpt-3.5-turbo)
 NEXT_PUBLIC_AI_MODEL=gpt-4o
 
-# Required: MongoDB connection for token mappings (if you want to use token mappings, and save addresses = tickers)
+# Optional: MongoDB connection for token mappings (if you want to use token mappings, and save addresses = tickers)
 MONGODB_URI=your_mongodb_uri
 MONGODB_DB=your_database_name
 
