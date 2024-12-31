@@ -86,18 +86,15 @@ export const systemPrompt = `Your AI assistant's personality and instructions`;
 
 ### 2. Embed the Component
 
-Add the Lexicon chat widget to your React/Next.js app:
+Add the Lexicon iframe widget to your app after hosting it at the desired location. 
 
 ```tsx
-import LexiconButton from "./components/LexiconButton";
-
-export default function YourApp() {
-  return (
-    <div>
-      <LexiconButton configId="your-config" />
-    </div>
-  );
-}
+    <script 
+        src="/lexicon-embed.js" 
+        data-config-id="default"
+        async
+        defer
+    ></script>
 ```
 
 ### 3. Customize the Look
