@@ -126,9 +126,6 @@ The component is built with Tailwind CSS and is fully customizable. Override sty
 - [Configuration Guide](docs/configuration.md)
 - [API Reference](docs/api-reference.md)
 
-## Contributing
-
-Contributions are welcome! Please read our [Contributing Guide](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
 
 ## License
 
