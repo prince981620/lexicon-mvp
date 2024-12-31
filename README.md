@@ -29,7 +29,7 @@ MONGODB_DB=your_database_name
 # Required: Your app's URL
 NEXT_PUBLIC_APP_URL=http://localhost:3000
 
-# Optional: Helius RPC endpoint for better Solana network performance
+# Optional: Helius endpoint for DAS APIs
 NEXT_PUBLIC_HELIUS_API_KEY=your_helius_api_key
 ```
 
