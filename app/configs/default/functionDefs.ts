@@ -22,32 +22,47 @@ export const tools = [
     },
   },
   {
-    name: "swap_tokens",
-    description: "Swaps tokens using Jupiter Exchange on Solana.",
+    name: "sell_L24AI",
+    description: "Sells L24AI tokens for SOL with transaction confirmation and status tracking.",
     strict: true,
     parameters: {
       type: "object",
-      required: ["inputToken", "outputToken", "amount", "slippageBps"],
+      required: ["amount"],
       properties: {
-        inputToken: {
-          type: "string",
-          description:
-            "The input token symbol or name (e.g., 'SOL', 'USDC', 'BONK') or (e.g., 'Solana', 'US Dollar Coin' or names with spaces aswell)",
-        },
-        outputToken: {
-          type: "string",
-          description:
-            "The output token symbol (e.g., 'SOL', 'USDC', 'BONK') or (e.g., 'Solana', 'US Dollar Coin' or names with spaces aswell)",
-        },
         amount: {
           type: "number",
-          description:
-            "The amount of input tokens in human-readable form (e.g., 0.5 SOL, not in lamports)",
+          description: "The amount of L24AI tokens to sell",
+          minimum: 1,
+          maximum: 1000000,
         },
         slippageBps: {
           type: "number",
-          description: "Slippage tolerance in basis points (e.g., 50 = 0.5%)",
+          description: "Slippage tolerance in basis points (1 = 0.01%)",
+          default: 50
+        }
+      },
+      additionalProperties: false,
+    },
+  },
+  {
+    name: "buy_L24AI",
+    description: "Buys L24AI tokens with SOL including transaction confirmation and status tracking.",
+    strict: true,
+    parameters: {
+      type: "object",
+      required: ["amount"],
+      properties: {
+        amount: {
+          type: "number",
+          description: "The amount of SOL to spend",
+          minimum: 0.001,
+          maximum: 1000,
         },
+        slippageBps: {
+          type: "number",
+          description: "Slippage tolerance in basis points (1 = 0.01%)",
+          default: 50
+        }
       },
       additionalProperties: false,
     },

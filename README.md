@@ -30,7 +30,7 @@ MONGODB_DB=your_database_name
 NEXT_PUBLIC_APP_URL=http://localhost:3000
 
 # Optional: Helius endpoint for DAS APIs
-NEXT_PUBLIC_HELIUS_API_KEY=your_helius_api_key
+NEXT_PUBLIC_QUICKNODE_RPC_URL=your_helius_api_key
 ```
 
 2. Install the dependencies:

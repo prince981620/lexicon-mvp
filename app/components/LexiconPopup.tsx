@@ -132,7 +132,7 @@ const LexiconPopup: React.FC<
         <div className="flex items-center gap-2">
           <div className="relative">
             <img
-              src="/lexicon/lexicon-logo.png"
+              src="https://res.cloudinary.com/dd37i7jgq/image/upload/v1735930729/dmx5m9q9u45vhjoghxgb.png"
               alt="Lexicon AI"
               className="h-7 w-7 rounded-full ring-2 ring-white/20"
             />
@@ -140,7 +140,7 @@ const LexiconPopup: React.FC<
           </div>
           <div>
             <h2 className="text-sm font-semibold text-white tracking-wide">
-              Lexicon AI
+              L24AI Agent
             </h2>
             <p className="text-[10px] text-gray-400">
               Online • Ready to assist
@@ -178,16 +178,16 @@ const LexiconPopup: React.FC<
         {/* Welcome Message - Now always visible */}
         <div className="flex items-start gap-3 animate-fade-in">
           <img
-            src="/lexicon/lexicon-logo.png"
-            alt="Lexicon AI"
+            src="https://res.cloudinary.com/dd37i7jgq/image/upload/v1735930729/dmx5m9q9u45vhjoghxgb.png"
+            alt="L24AI Agent"
             className="h-8 w-8 rounded-full ring-2 ring-white/20"
           />
           <div className="bg-gradient-to-br from-[#1e1e1e] to-[#1a1a1a] text-white/90 rounded-2xl rounded-tl-none px-5 py-4 max-w-[85%] shadow-xl">
-            <p className="text-white font-medium">👋 Welcome to Lexicon AI</p>
+            <p className="text-white font-medium">👋 Welcome to L24AI Agent</p>
             <p className="mt-2 text-white/70 text-sm leading-relaxed">
               I'm your specialized assistant for the Solana blockchain. Ask me
               anything about development, transactions, or exploring the
-              ecosystem!
+              ecosystem! You can also buy & sell L24AI tokens using Me!.
             </p>
           </div>
         </div>
@@ -202,8 +202,8 @@ const LexiconPopup: React.FC<
           >
             {message.role === "assistant" && (
               <img
-                src="/lexicon/lexicon-logo.png"
-                alt="Lexicon AI"
+                src="https://res.cloudinary.com/dd37i7jgq/image/upload/v1735930729/dmx5m9q9u45vhjoghxgb.png"
+                alt="L24AI Agent"
                 className="h-8 w-8 rounded-full ring-2 ring-white/20"
               />
             )}
@@ -233,8 +233,8 @@ const LexiconPopup: React.FC<
         {isGenerating && (
           <div className="flex items-start gap-3">
             <img
-              src="/lexicon/lexicon-logo.png"
-              alt="Lexicon AI"
+              src="https://res.cloudinary.com/dd37i7jgq/image/upload/v1735930729/dmx5m9q9u45vhjoghxgb.png"
+              alt="L24AI Agent"
               className="h-8 w-8 rounded-full ring-2 ring-white/20"
             />
             <div className="bg-gradient-to-br from-[#1e1e1e] to-[#1a1a1a] rounded-2xl rounded-tl-none px-5 py-4 shadow-xl">
@@ -251,12 +251,12 @@ const LexiconPopup: React.FC<
             type="text"
             value={userInput}
             onChange={(e) => setUserInput(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && !isGenerating && startChat()}
+            // onKeyDown={(e) => e.key === "Enter" && !isGenerating && startChat()}
             disabled={isGenerating}
             className="flex-1 px-4 py-2 bg-[#1a1a1a] text-sm text-white rounded-xl border border-gray-800 focus:outline-none focus:border-white/50 focus:ring-1 focus:ring-white/10 placeholder-gray-500 transition-all duration-200"
             placeholder={
               isGenerating
-                ? "Lexicon is thinking..."
+                ? "L24AI Agent is thinking..."
                 : "Ask anything about Solana..."
             }
           />
@@ -293,7 +293,7 @@ const LexiconPopup: React.FC<
             </span>
             <div className="flex items-center gap-1.5">
               <img
-                src="/lexicon/lexicon-logo-dark.png"
+                src="https://res.cloudinary.com/dwcitpm8v/image/upload/fl_preserve_transparency/v1735947463/bvhuhezrmnkyjwk8h4na.jpg?_s=public-apps"
                 alt="Lexicon"
                 className="w-3 h-3 rounded-full"
               />
